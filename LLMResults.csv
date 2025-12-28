@@ -1,0 +1,541 @@
+,SAE Question,AAVE Question,SPARQL,Results,Attempts,Name,Answer
+0,What is the seventh tallest mountain in North America?,Wha's da seventh tallest mountain in North America?,"SELECT DISTINCT ?item ?itemLabel ?elev WHERE {
+  ?item wdt:P31/wdt:P279* wd:Q8502;
+        wdt:P2044 ?elev.
+  { ?item wdt:P30 wd:Q49 } UNION { ?item wdt:P17/wdt:P30 wd:Q49 }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?elev)
+OFFSET 6
+LIMIT 1","{'head': {'vars': ['item', 'itemLabel', 'elev']}, 'results': {'bindings': [{'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q5351150'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'El Diente Peak'}, 'elev': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '14165'}}]}}",1,['El Diente Peak'],El Diente Peak
+1,"Which actor was a star of Titanic and was born in Los Angeles, California?","Which actor was da star of Titanic and was born in Los Angeles, California?","SELECT ?item ?itemLabel WHERE {
+  wd:Q1258 wdt:P161 ?item.
+  ?item wdt:P19 wd:Q65.
+  ?item wdt:P31 wd:Q5.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel']}, 'results': {'bindings': []}}",1,,I don't know
+2,Which actor starred in Vanilla Sky and was married to Katie Holmes?,Which actor starred in Vanilla Sky an' was married to Katie Holmes?,"SELECT ?actor ?actorLabel WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Vanilla Sky""@en;
+        wdt:P161 ?actor.
+  ?actor wdt:P26 wd:Q13133.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['actor', 'actorLabel']}, 'results': {'bindings': []}}",1,,Nan Chan
+3,In what year did the first book of the A Song of Ice and Fire series come out?,What year da first book of A Song of Ice and Fire series come out?,"SELECT (MIN(YEAR(?pub)) AS ?year) WHERE {
+  ?series rdfs:label ""A Song of Ice and Fire""@en.
+  ?book wdt:P179 ?series;
+        wdt:P1545 ?ord;
+        wdt:P577 ?pub.
+  FILTER(xsd:integer(?ord) = 1)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['year']}, 'results': {'bindings': [{}]}}",1,[],2000
+4,Who is the youngest current U.S. governor?,Who da youngest current US governor?,"SELECT ?person ?personLabel ?stateLabel ?dob WHERE {
+  ?state wdt:P31 wd:Q35657;
+         wdt:P6 ?person.
+  ?person wdt:P31 wd:Q5;
+          wdt:P569 ?dob.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?dob)
+LIMIT 1","{'head': {'vars': ['person', 'personLabel', 'stateLabel', 'dob']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q27986907'}, 'dob': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1982-08-13T00:00:00Z'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Sarah Sanders'}, 'stateLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Arkansas'}}]}}",1,"['Sarah Sanders', 'Arkansas']",Sarah Sanders
+5,Which U.S. president had the most votes?,Which US president done had da most votes?,"SELECT ?president ?presidentLabel ?votes WHERE {
+  ?election wdt:P541 wd:Q11696.
+  ?election p:P726 ?candStmt.
+  ?candStmt ps:P726 ?president.
+  ?president wdt:P39 wd:Q11696.
+  ?candStmt pq:P1111 ?votes.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?votes)
+LIMIT 1","{'head': {'vars': ['president', 'presidentLabel', 'votes']}, 'results': {'bindings': [{'president': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q6279'}, 'presidentLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Joe Biden'}, 'votes': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '81268757'}}]}}",1,['Joe Biden'],Joe Biden
+6,How long did it take to build the Lincoln Memorial?,How long it take to build da Lincoln Memorial?,"PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT
+  ?memorial
+  ?memorialLabel
+  (MIN(?start0) AS ?constructionStart)
+  (COALESCE(MAX(?end0), MAX(?opening0), MAX(?inception0)) AS ?constructionEnd)
+  ((COALESCE(MAX(?end0), MAX(?opening0), MAX(?inception0)) - MIN(?start0)) AS ?buildDuration)
+WHERE {
+  ?memorial rdfs:label ""Lincoln Memorial""@en.
+
+  OPTIONAL {
+    ?memorial p:P793 ?statement.
+    ?statement ps:P793 wd:Q385378.   # construction
+    OPTIONAL { ?statement pq:P580 ?start0. }  # start time
+    OPTIONAL { ?statement pq:P582 ?end0. }    # end time
+  }
+
+  OPTIONAL { ?memorial wdt:P1619 ?opening0. }   # official opening
+  OPTIONAL { ?memorial wdt:P571  ?inception0. } # inception/completion
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?memorial ?memorialLabel
+LIMIT 1","{'head': {'vars': ['memorial', 'memorialLabel', 'constructionStart', 'constructionEnd', 'buildDuration']}, 'results': {'bindings': [{'memorial': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q213559'}, 'memorialLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Lincoln Memorial'}, 'constructionEnd': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1922-05-30T00:00:00Z'}}]}}",1,['Lincoln Memorial'],a year
+7,Has Bernie Sanders ever been president of the United States?,AAVE Translation: Has Bernie Sanders ever been president of da United States?,"SELECT (EXISTS { wd:Q359442 wdt:P39 wd:Q11696 } AS ?hasBeenPresident) WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['hasBeenPresident']}, 'results': {'bindings': [{}]}}",1,[],yes
+8,Which actor was Stephenie Meyer's first pick to play Edward Cullen in the movie Twilight?,Which actor was Stephenie Meyer’s first pick to play Edward Cullen in da movie Twilight?,"SELECT ?actor ?actorLabel WHERE {
+  VALUES ?actor { wd:Q2685 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['actor', 'actorLabel']}, 'results': {'bindings': [{'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2685'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Arnold Schwarzenegger'}}]}}",1,['Arnold Schwarzenegger'],Arnold Schwarzenegger
+9,"How old was Taylor Swift when she won her first Grammy, though?","How old was Taylor Swift when she won her first Grammy, though?","SELECT ?age ?winDate WHERE {
+  VALUES ?person { wd:Q26876 }
+  ?person wdt:P569 ?birth .
+  ?person p:P166 ?awardStmt .
+  ?awardStmt ps:P166 ?award ;
+             pq:P585 ?winDate .
+  ?award wdt:P31/wdt:P279* wd:Q41207 .
+  BIND(
+    YEAR(?winDate) - YEAR(?birth)
+    - IF(
+        (MONTH(?winDate) < MONTH(?birth)) ||
+        (MONTH(?winDate) = MONTH(?birth) && DAY(?winDate) < DAY(?birth)),
+        1, 0
+      ) AS ?age
+  )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ?winDate
+LIMIT 1","{'head': {'vars': ['age', 'winDate']}, 'results': {'bindings': []}}",1,,17
+10,Which river is longer than the Mississippi River?,Which river longer than da Mississippi River?,"SELECT DISTINCT ?river ?riverLabel WHERE {
+  wd:Q1497 wdt:P2043 ?missLen.
+  ?river wdt:P31 wd:Q4022;
+         wdt:P2043 ?length.
+  FILTER(?river != wd:Q1497)
+  FILTER(?length > ?missLen)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['river', 'riverLabel']}, 'results': {'bindings': [{'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q123470807'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Meratus River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q123470809'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Pasar Rambai River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q123470784'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Sipai River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q123470810'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Salatiga River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q123470811'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Skip Lama River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q128102'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Irtysh'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q136779214'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Deia'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q855309'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Bian River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q127892'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Paraná River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q12517843'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Kuin River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q19742193'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Mentaya River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q7124470'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Paguyaman River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q6774211'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Martapura River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24838118'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Setarap River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24842041'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Satui River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24843318'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Riam Kanan River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24843320'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Riamkiwa River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24878211'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Katingan River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24881791'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Kumai River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24882002'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Lamandau River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q25016967'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Alalak River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3392'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Nile'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3503'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Congo'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3783'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Amazon'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q5413'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Yangtze'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q7355'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Yellow River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3542'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Niger River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q41179'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Mekong River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q46841'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Lena River'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q116469463'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Jūrō Gawa'}}, {'river': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q123470806'}, 'riverLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Bali River'}}]}}",1,['Meratus River'],The Meratus River
+11,How old is Da singer of The Dance?,How old is da singer of The Dance?,"SELECT ?singer ?singerLabel ?age WHERE {
+  ?song wdt:P31 wd:Q7366;
+        rdfs:label ""The Dance""@en;
+        wdt:P175 ?singer.
+  ?singer wdt:P31 wd:Q5;
+          wdt:P569 ?dob.
+  OPTIONAL { ?singer wdt:P570 ?dod. }
+  BIND(COALESCE(?dod, NOW()) AS ?refDate)
+  BIND(YEAR(?refDate) - YEAR(?dob) - IF(MONTH(?refDate) < MONTH(?dob) || (MONTH(?refDate) = MONTH(?dob) && DAY(?refDate) < DAY(?dob)), 1, 0) AS ?age)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['singer', 'singerLabel', 'age']}, 'results': {'bindings': []}}",1,,I don't know
+12,What is the latest U.S. state to get admitted to the union that isn't Hawaii?,What da latest US state to get admitted to da union dat ain't Hawaii?,"SELECT ?state ?stateLabel ?admission WHERE {
+  ?state wdt:P31 wd:Q35657;
+         wdt:P571 ?admission.
+  FILTER(?state != wd:Q782)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?admission)
+LIMIT 1","{'head': {'vars': ['state', 'stateLabel', 'admission']}, 'results': {'bindings': [{'state': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q797'}, 'admission': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1959-01-03T00:00:00Z'}, 'stateLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Alaska'}}]}}",1,['Alaska'],Alaska
+13,What is the longest lake in the world?,What da longest lake in da world?,"SELECT ?lake ?lakeLabel ?length WHERE {
+  ?lake wdt:P31/wdt:P279* wd:Q23397.
+  ?lake wdt:P2043 ?length.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?length)
+LIMIT 1","{'head': {'vars': ['lake', 'lakeLabel', 'length']}, 'results': {'bindings': [{'lake': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q26838793'}, 'length': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '9300'}, 'lakeLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Faydat Umm Shuwayjah'}}]}}",1,['Faydat Umm Shuwayjah'],Faydat Umm Shuwayjah
+14,How many teams did Matthew Stafford play for?,How many teams Matthew Stafford done played for?,"SELECT (COUNT(DISTINCT ?team) AS ?teamCount) WHERE {
+  ?person rdfs:label ""Matthew Stafford""@en;
+          wdt:P31 wd:Q5;
+          wdt:P54 ?team.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['teamCount']}, 'results': {'bindings': [{'teamCount': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1'}}]}}",1,[],2
+15,"Where was the singer of ""Genie in a Bottle"" born?",Where da singer of Genie in a Bottle born at?,"SELECT ?singer ?singerLabel ?birthplace ?birthplaceLabel WHERE {
+  ?song rdfs:label ""Genie in a Bottle""@en;
+        wdt:P31 ?type;
+        wdt:P175 ?singer.
+  VALUES ?type { wd:Q7366 wd:Q134556 }
+  ?singer wdt:P19 ?birthplace.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['singer', 'singerLabel', 'birthplace', 'birthplaceLabel']}, 'results': {'bindings': [{'singer': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q41594'}, 'birthplace': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q18432'}, 'singerLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Christina Aguilera'}, 'birthplaceLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Staten Island'}}, {'singer': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q41594'}, 'birthplace': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q18432'}, 'singerLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Christina Aguilera'}, 'birthplaceLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Staten Island'}}]}}",1,"['Christina Aguilera', 'Staten Island']",Staten Island
+16,When did Metallica drop their fourth album?,When Metallica drop dey fourth album?,"SELECT ?album ?albumLabel (MIN(?d) AS ?date) WHERE {
+  ?album wdt:P31/wdt:P279* wd:Q208569;
+         wdt:P175 wd:Q11649;
+         wdt:P577 ?d.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?album ?albumLabel
+ORDER BY ASC(?date)
+OFFSET 3
+LIMIT 1","{'head': {'vars': ['album', 'albumLabel', 'date']}, 'results': {'bindings': []}}",1,,"November 13, 2008"
+17,"Which series was older, Metroid or Super Mario Bros?","Which series older, Metroid or Super Mario Bros?","SELECT ?series ?seriesLabel ?firstRelease WHERE {
+  VALUES ?seedLabel { ""Metroid""@en ""Super Mario Bros.""@en }
+  ?seedGame rdfs:label ?seedLabel;
+            wdt:P31 wd:Q7889;
+            wdt:P179 ?series.
+  {
+    SELECT ?series (MIN(?date) AS ?firstRelease) WHERE {
+      ?game wdt:P179 ?series;
+            wdt:P31 wd:Q7889;
+            wdt:P577 ?date.
+    } GROUP BY ?series
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ?firstRelease
+LIMIT 2","{'head': {'vars': ['series', 'seriesLabel', 'firstRelease']}, 'results': {'bindings': [{'series': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q4802838'}, 'firstRelease': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1985-01-01T00:00:00Z'}, 'seriesLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Super Mario'}}, {'series': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q12397'}, 'firstRelease': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1986-08-01T00:00:00Z'}, 'seriesLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Metroid'}}]}}",1,['Super Mario'],Super Mario Bros
+18,In which Super Mario Land game you not play as Mario?,In which Super Mario Land game you ain't play as Mario?,"SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q7889.
+  ?item rdfs:label ?label.
+  FILTER(LANG(?label) = ""en"").
+  FILTER(CONTAINS(?label, ""Super Mario Land"")).
+  FILTER NOT EXISTS { ?item wdt:P674 wd:Q1406. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel']}, 'results': {'bindings': [{'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q596392'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Super Mario Land 2: 6 Golden Coins'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1634866'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Wario Land: Super Mario Land 3'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q647249'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Super Mario Land'}}]}}",1,['Super Mario Land 2: 6 Golden Coins'],Super Mario Land 2: 6 Golden Coins
+19,Is Texas the largest state in the U.S.?,Is Texas da largest state in da US?,"SELECT ?isLargest ?texas ?texasLabel ?largestState ?largestStateLabel ?txArea ?maxArea WHERE {
+  BIND(wd:Q1439 AS ?texas)
+  ?texas wdt:P2046 ?txArea.
+  {
+    SELECT (MAX(?area) AS ?maxArea) WHERE {
+      ?s wdt:P31 wd:Q35657;
+         wdt:P2046 ?area.
+    }
+  }
+  OPTIONAL {
+    ?largestState wdt:P31 wd:Q35657;
+                  wdt:P2046 ?maxArea.
+  }
+  BIND(IF(?txArea = ?maxArea, true, false) AS ?isLargest)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['isLargest', 'texas', 'texasLabel', 'largestState', 'largestStateLabel', 'txArea', 'maxArea']}, 'results': {'bindings': [{'maxArea': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '1717856'}, 'largestState': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q797'}, 'texas': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1439'}, 'txArea': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '696241'}, 'texasLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Texas'}, 'largestStateLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Alaska'}, 'isLargest': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}}]}}",1,"['Texas', 'Alaska']",no
+20,How many times did the Los Angeles Dodgers lose the World Series?,How many times da Los Angeles Dodgers lost da World Series?,"SELECT (COUNT(DISTINCT ?ws) AS ?count) WHERE {
+  VALUES ?team { wd:Q1155894 wd:Q171582 wd:Q467426 }
+  ?ws wdt:P629 wd:Q81021;
+      wdt:P1346 ?winner.
+  FILTER(?winner != ?team)
+  { ?ws wdt:P710 ?team } UNION { ?ws wdt:P1923 ?team }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['count']}, 'results': {'bindings': [{'count': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '0'}}]}}",1,[],two
+21,Who was the president of Argentina from 1989 to 1999?,Who was da president of Argentina from 1989 to 1999?,"PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?person ?personLabel WHERE {
+  wd:Q414 p:P6 ?statement.
+  ?statement ps:P6 ?person;
+             pq:P580 ?start;
+             pq:P582 ?end.
+  FILTER(YEAR(?start) = 1989 && YEAR(?end) = 1999)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",1,,I don't know
+22,"Who was a member of the 2004 U.S. Olympic men's swim team and was born in Baltimore, Maryland?","Who was a member of da 2004 U.S. Olympic men’s swim team and born in Baltimore, Maryland?","SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5;
+        wdt:P19 wd:Q5092;
+        wdt:P21 wd:Q6581097;
+        wdt:P27 wd:Q30;
+        wdt:P1344 ?event.
+  ?event (wdt:P361*) ?parentEvent.
+  ?parentEvent rdfs:label ""Swimming at the 2004 Summer Olympics""@en.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel']}, 'results': {'bindings': []}}",1,,I don't know
+23,Have the Los Angeles Rams won a Super Bowl ring since they came back to Los Angeles?,Have the Los Angeles Rams won a Super Bowl ring since they came back to Los Angeles?,"SELECT (IF(COUNT(?sb) > 0, ""Yes"", ""No"") AS ?wonSinceReturn) WHERE {
+  ?team rdfs:label ""Los Angeles Rams""@en.
+  {
+    SELECT ?team (MAX(?start) AS ?returnDate) WHERE {
+      ?team p:P159 ?st.
+      ?st ps:P159 ?city.
+      ?city rdfs:label ""Los Angeles""@en.
+      OPTIONAL { ?st pq:P580 ?start. }
+    } GROUP BY ?team
+  }
+  ?sb wdt:P1346 ?team.
+  ?sb wdt:P179 ?series.
+  ?series rdfs:label ""Super Bowl""@en.
+  ?sb wdt:P585 ?date.
+  FILTER(?date >= ?returnDate)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['wonSinceReturn']}, 'results': {'bindings': [{'wonSinceReturn': {'type': 'literal', 'value': 'No'}}]}}",1,[],yes
+24,What governors of Ohio since 2000 have not been Republican?,What governors of Ohio since 2000 ain't been Republican?,"SELECT DISTINCT ?person ?personLabel ?start ?end WHERE {
+  BIND(wd:Q1397 AS ?state)
+  ?state wdt:P1313 ?office.
+  ?person p:P39 ?posStmt.
+  ?posStmt ps:P39 ?office.
+  OPTIONAL { ?posStmt pq:P580 ?start. }
+  OPTIONAL { ?posStmt pq:P582 ?end. }
+  BIND(""2000-01-01T00:00:00Z""^^xsd:dateTime AS ?cutoff)
+  FILTER( (BOUND(?end) && ?end >= ?cutoff) || (!BOUND(?end) && BOUND(?start) && ?start >= ?cutoff) )
+  FILTER NOT EXISTS { ?person wdt:P102 wd:Q29468. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ?start","{'head': {'vars': ['person', 'personLabel', 'start', 'end']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q465295'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Ted Strickland'}, 'start': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2007-01-08T00:00:00Z'}, 'end': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2011-01-10T00:00:00Z'}}]}}",1,['Ted Strickland'],Ted Strickland
+25,Has no one ever been a Christian U.S. senator?,Ain't nobody ever been no Christian U.S. senator?,"SELECT ?count (IF(?count=0, true, false) AS ?noOne) WHERE {
+  {
+    SELECT (COUNT(DISTINCT ?person) AS ?count) WHERE {
+      ?person wdt:P39 ?pos.
+      ?pos wdt:P194 wd:Q11268.
+      ?person wdt:P140/wdt:P279* wd:Q5043.
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['count', 'noOne']}, 'results': {'bindings': [{'count': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '0'}, 'noOne': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'true'}}]}}",1,[],no
+26,Is Venus Williams older than Serena Williams?,Is Venus Williams older than Serena Williams?,"SELECT ?isVenusOlder WHERE {
+  ?venus wdt:P31 wd:Q5;
+         rdfs:label ""Venus Williams""@en;
+         wdt:P569 ?venusBirth.
+  ?serena wdt:P31 wd:Q5;
+          rdfs:label ""Serena Williams""@en;
+          wdt:P569 ?serenaBirth.
+  BIND(?venusBirth < ?serenaBirth AS ?isVenusOlder)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['isVenusOlder']}, 'results': {'bindings': [{'isVenusOlder': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'true'}}]}}",1,[],Venus Williams is a tennis player.
+27,Did The Beatles drop Rubber Soul before Revolver?,Did The Beatles drop Rubber Soul before Revolver?,"SELECT ?rubberSoul ?rubberSoulLabel ?rubberSoulDate ?revolver ?revolverLabel ?revolverDate (?rubberSoulDate < ?revolverDate AS ?rubberSoulBeforeRevolver) WHERE {
+  ?beatles wdt:P31 wd:Q215380; rdfs:label ""The Beatles""@en.
+
+  {
+    SELECT ?rubberSoul (MIN(?d1) AS ?rubberSoulDate) WHERE {
+      ?rubberSoul wdt:P31 wd:Q208569;  # studio album
+                  wdt:P175 ?beatles;
+                  rdfs:label ""Rubber Soul""@en;
+                  wdt:P577 ?d1.
+    } GROUP BY ?rubberSoul
+  }
+
+  {
+    SELECT ?revolver (MIN(?d2) AS ?revolverDate) WHERE {
+      ?revolver wdt:P31 wd:Q208569;  # studio album
+                wdt:P175 ?beatles;
+                rdfs:label ""Revolver""@en;
+                wdt:P577 ?d2.
+    } GROUP BY ?revolver
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['rubberSoul', 'rubberSoulLabel', 'rubberSoulDate', 'revolver', 'revolverLabel', 'revolverDate', 'rubberSoulBeforeRevolver']}, 'results': {'bindings': []}}",1,,Yes
+28,How old is Aziz Ansari?,How old is Aziz Ansari?,"SELECT ?age WHERE {
+  ?person wdt:P31 wd:Q5;
+          rdfs:label ""Aziz Ansari""@en;
+          wdt:P569 ?dob.
+  BIND(NOW() AS ?now)
+  BIND((YEAR(?now) - YEAR(?dob) - IF(MONTH(?now) < MONTH(?dob) || (MONTH(?now) = MONTH(?dob) && DAY(?now) < DAY(?dob)), 1, 0)) AS ?age)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['age']}, 'results': {'bindings': [{'age': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '42'}}]}}",1,[],20
+29,How many Pulitzer Prizes did Colson Whitehead win?,How many Pulitzer Prizes Colson Whitehead done won?,"SELECT (COUNT(?statement) AS ?count) WHERE {
+  ?person wdt:P31 wd:Q5;
+          rdfs:label ""Colson Whitehead""@en;
+          p:P166 ?statement.
+  ?statement ps:P166 ?award.
+  ?award wdt:P361 wd:Q42536.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['count']}, 'results': {'bindings': [{'count': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '0'}}]}}",1,[],three
+30,"Who has been in more movies, Kevin Hart or Dwayne Johnson?","Who been in more movies, Kevin Hart or Dwayne Johnson?","SELECT ?person ?personLabel (COUNT(DISTINCT ?film) AS ?filmCount) WHERE {
+  VALUES ?name {""Kevin Hart""@en ""Dwayne Johnson""@en}
+  ?person wdt:P31 wd:Q5;
+          wdt:P106 wd:Q33999;
+          rdfs:label ?name.
+  ?film wdt:P31/wdt:P279* wd:Q11424;
+        wdt:P161 ?person.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?person ?personLabel
+ORDER BY DESC(?filmCount)","{'head': {'vars': ['person', 'personLabel', 'filmCount']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q618352'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Kevin Hart'}, 'filmCount': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '54'}}, {'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q10738'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Dwayne Johnson'}, 'filmCount': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '52'}}]}}",1,['Kevin Hart'],Kevin Hart
+31,Did the movie Moana come out before 2015?,Did da movie Moana come out before 2015?,"ASK WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Moana""@en;
+        wdt:P577 ?date.
+  ?film schema:description ?desc.
+  FILTER(LANG(?desc) = ""en"" && CONTAINS(LCASE(?desc), ""2016"") && CONTAINS(LCASE(?desc), ""film""))
+  FILTER(?date < ""2015-01-01T00:00:00Z""^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {}, 'boolean': False}",1,False,"No, it was released in 2015."
+32,"Which movie made more money, Joker or Suicide Squad (2016)?","Which movie made mo' money, Joker or Suicide Squad (2016)?","SELECT ?film ?filmLabel (MAX(?usdAmount) AS ?boxOfficeUSD) WHERE {
+  {
+    ?film wdt:P31 wd:Q11424;
+          rdfs:label ""Joker""@en;
+          wdt:P577 ?date.
+    FILTER(YEAR(?date)=2019)
+  }
+  UNION
+  {
+    ?film wdt:P31 wd:Q11424;
+          rdfs:label ""Suicide Squad""@en;
+          wdt:P577 ?date.
+    FILTER(YEAR(?date)=2016)
+  }
+  ?film p:P2142 ?stmt.
+  ?stmt psv:P2142 ?valNode.
+  ?valNode wikibase:quantityAmount ?usdAmount;
+           wikibase:quantityUnit wd:Q4917.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?film ?filmLabel
+ORDER BY DESC(?boxOfficeUSD)
+LIMIT 1","{'head': {'vars': ['film', 'filmLabel', 'boxOfficeUSD']}, 'results': {'bindings': [{'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q42759035'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Joker'}, 'boxOfficeUSD': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '1074458282'}}]}}",1,['Joker'],Joker
+33,"Which movie dropped first, Avengers: Endgame or Joker?","Which movie dropped first, Avengers: Endgame or Joker?","SELECT ?film ?filmLabel (MIN(?pubDate) AS ?firstRelease) WHERE {
+  VALUES ?article { <https://en.wikipedia.org/wiki/Avengers:_Endgame> <https://en.wikipedia.org/wiki/Joker_(2019_film)> }
+  ?article schema:about ?film .
+  ?film wdt:P31 wd:Q11424 ;
+        wdt:P577 ?pubDate .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?film ?filmLabel
+ORDER BY ?firstRelease
+LIMIT 1","{'head': {'vars': ['film', 'filmLabel', 'firstRelease']}, 'results': {'bindings': [{'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q23781155'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Avengers: Endgame'}, 'firstRelease': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2019-04-22T00:00:00Z'}}]}}",1,['Avengers: Endgame'],Avengers: Endgame
+34,Was Friday the 13th in the same year as Halloween?,Was Friday da 13th drop da same year as Halloween?,"ASK WHERE {
+  {
+    SELECT (MIN(YEAR(?d1)) AS ?y1) WHERE { wd:Q193603 wdt:P577 ?d1. }
+  }
+  {
+    SELECT (MIN(YEAR(?d2)) AS ?y2) WHERE { wd:Q188543 wdt:P577 ?d2. }
+  }
+  FILTER(?y1 = ?y2)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {}, 'boolean': False}",1,False,Halloween is a Halloween holiday that falls on the 13th of November.
+35,"Did the movie ""Screech"" come out before 2000?",Did Scream come out 'fore 2000?,"PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+SELECT ?film ?filmLabel (MIN(?date) AS ?firstRelease) (IF(MIN(?date) < ""2000-01-01T00:00:00Z""^^xsd:dateTime, true, false) AS ?cameOutBefore2000) WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Screech""@en;
+        wdt:P577 ?date.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?film ?filmLabel","{'head': {'vars': ['film', 'filmLabel', 'firstRelease', 'cameOutBefore2000']}, 'results': {'bindings': []}}",1,,yes
+36,"Who is older, Drew Barrymore or Neve Campbell?","Who older, Drew Barrymore or Neve Campbell?","SELECT ?person ?personLabel ?dob WHERE {
+  VALUES ?person { wd:Q43466 wd:Q215152 }
+  ?person wdt:P569 ?dob.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ?dob
+LIMIT 1","{'head': {'vars': ['person', 'personLabel', 'dob']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q43466'}, 'dob': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1884-08-05T00:00:00Z'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Ludwik Hirszfeld'}}]}}",1,['Ludwik Hirszfeld'],Drew Barrymore
+37,Was The Ring dropped before 2005?,Was The Ring drop before 2005?,"SELECT ?item ?itemLabel ?date WHERE {
+  ?item wdt:P31 wd:Q11424;
+        rdfs:label ""The Ring""@en;
+        wdt:P577 ?date.
+  FILTER(?date < ""2005-01-01T00:00:00Z""^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel', 'date']}, 'results': {'bindings': [{'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q212804'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2002-01-01T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q212804'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2002-10-02T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q212804'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2002-10-18T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q212804'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2002-11-02T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q212804'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '2003-02-13T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q499031'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1927-01-01T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q499031'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1927-10-01T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q4846244'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1984-01-01T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q4846244'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1985-01-01T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q7760795'}, 'date': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1952-01-01T00:00:00Z'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Ring'}}]}}",1,['The Ring'],yes
+38,"Who is older, Jodie Foster or Julia Roberts?","Who older, Jodie Foster or Julia Roberts?","SELECT ?person ?personLabel ?birth WHERE {
+  VALUES ?name {""Jodie Foster""@en ""Julia Roberts""@en}
+  ?person rdfs:label ?name;
+          wdt:P31 wd:Q5;
+          wdt:P569 ?birth.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ASC(?birth)
+LIMIT 1","{'head': {'vars': ['person', 'personLabel', 'birth']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q6306690'}, 'birth': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1956-06-10T00:00:00Z'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Julia Roberts'}}]}}",1,['Julia Roberts'],Julia Roberts
+39,"Who is taller, Angelina Jolie or Brad Pitt?","Who taller, Angelina Jolie or Brad Pitt?","SELECT ?person ?personLabel ?height WHERE {
+  VALUES ?person { wd:Q13909 wd:Q35332 }
+  ?person wdt:P2048 ?height.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?height)
+LIMIT 1","{'head': {'vars': ['person', 'personLabel', 'height']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q35332'}, 'height': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '180'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Brad Pitt'}}]}}",1,['Brad Pitt'],Brad Pitt
+40,Is Jake Gyllenhaal older than Maggie Gyllenhaal?,Is Jake Gyllenhaal older than Maggie Gyllenhaal?,"PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+SELECT ?jakeLabel ?maggieLabel ?jakeBirth ?maggieBirth ?isJakeOlder WHERE {
+  ?jake wdt:P31 wd:Q5;
+        rdfs:label ""Jake Gyllenhaal""@en;
+        wdt:P569 ?jakeBirth.
+  ?maggie wdt:P31 wd:Q5;
+          rdfs:label ""Maggie Gyllenhaal""@en;
+          wdt:P569 ?maggieBirth.
+  BIND(?jakeBirth < ?maggieBirth AS ?isJakeOlder)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['jakeLabel', 'maggieLabel', 'jakeBirth', 'maggieBirth', 'isJakeOlder']}, 'results': {'bindings': [{'jakeBirth': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1980-12-19T00:00:00Z'}, 'maggieBirth': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1977-11-16T00:00:00Z'}, 'jakeLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Jake Gyllenhaal'}, 'maggieLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Maggie Gyllenhaal'}, 'isJakeOlder': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}}]}}",1,"['Jake Gyllenhaal', 'Maggie Gyllenhaal']",yes
+41,Was the movie Parasite dropped after 2015?,Was Parasite dropped after 2015?,"PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+ASK WHERE {
+  ?film wdt:P31 wd:Q11424 ;
+        wdt:P57 wd:Q146929 ;
+        wdt:P577 ?date .
+  FILTER(EXISTS { ?film rdfs:label ""Parasite""@en })
+  FILTER(?date > ""2015-12-31T00:00:00Z""^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {}, 'boolean': False}",1,False,no
+42,Did Citizen Kane come out before 1950?,Did Citizen Kane come out before 1950?,"ASK WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Citizen Kane""@en;
+        wdt:P577 ?date.
+  FILTER(?date < ""1950-01-01T00:00:00Z""^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {}, 'boolean': True}",1,True,Yes.
+43,In what year was Tom Cruise younger than Denzel Washington?,Is Tom Cruise younger than Denzel Washington?,"SELECT ?year WHERE {
+  wd:Q37079 wdt:P569 ?birthTom.
+  wd:Q8646 wdt:P569 ?birthDenzel.
+  FILTER(?birthTom > ?birthDenzel)
+  BIND(YEAR(?birthTom) AS ?year)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['year']}, 'results': {'bindings': []}}",1,,1990
+44,Was Avatar's budget greater than $200 million?,Was Avatar's budget greater than $200 million?,"SELECT ?film ?filmLabel (MAX(?budget) AS ?budgetAmount) ((MAX(?budget) > 200000000) AS ?isOver200M) WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Avatar""@en;
+        wdt:P577 ?date.
+  FILTER(YEAR(?date) = 2009)
+  { ?film wdt:P2769 ?budget } UNION { ?film wdt:P2130 ?budget }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?film ?filmLabel","{'head': {'vars': ['film', 'filmLabel', 'budgetAmount', 'isOver200M']}, 'results': {'bindings': [{'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q24871'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Avatar'}, 'budgetAmount': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '237000000'}, 'isOver200M': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'true'}}]}}",1,['Avatar'],yes
+45,"Which movie made more money overall, Titanic or Avatar?","Which movie made mo' money overall, Titanic or Avatar?","SELECT ?film ?filmLabel ?boxOffice WHERE {
+  {
+    SELECT ?film (MAX(?amount) AS ?boxOffice) WHERE {
+      VALUES ?film { wd:Q248 wd:Q44578 }
+      ?film wdt:P2142 ?amount.
+    }
+    GROUP BY ?film
+    ORDER BY DESC(?boxOffice)
+    LIMIT 1
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['film', 'filmLabel', 'boxOffice']}, 'results': {'bindings': [{'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q44578'}, 'boxOffice': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '1850197130'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Titanic'}}]}}",1,['Titanic'],Titanic
+46,"Which movie made more money, Jurassic World or The Lion King?","Which movie made mo’ money, Jurassic World or The Lion King?","SELECT ?title ?boxOffice WHERE {
+  VALUES ?title {""Jurassic World""@en ""The Lion King""@en}
+  {
+    SELECT ?title (MAX(?box) AS ?boxOffice) WHERE {
+      ?movie wdt:P31 wd:Q11424;
+             wdt:P1476 ?title;
+             wdt:P2142 ?box.
+      FILTER(LANG(?title) = ""en"")
+    }
+    GROUP BY ?title
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?boxOffice)","{'head': {'vars': ['title', 'boxOffice']}, 'results': {'bindings': [{'title': {'xml:lang': 'en', 'type': 'literal', 'value': 'Jurassic World'}, 'boxOffice': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '1670400637'}}, {'title': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Lion King'}, 'boxOffice': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '1654735262'}}]}}",1,[],Jurassic World
+47,"Which Netflix series got watched more, Bridgerton or Tiger King?","Which Netflix series done got watched more, Bridgerton or Tiger King?","SELECT ?item ?itemLabel (MAX(?value) AS ?views) (SAMPLE(?propLabel) AS ?metricLabel) WHERE {
+  VALUES ?name { ""Bridgerton""@en ""Tiger King""@en ""Tiger King: Murder, Mayhem and Madness""@en }
+  ?item rdfs:label ?name;
+        wdt:P31/wdt:P279* wd:Q5398426;
+        wdt:P449 wd:Q907311.
+  ?item ?wdtProp ?value .
+  ?propEntity wikibase:directClaim ?wdtProp;
+              wikibase:propertyType wikibase:Quantity;
+              rdfs:label ?propLabel.
+  FILTER(LANG(?propLabel) = ""en"")
+  FILTER(
+    CONTAINS(LCASE(?propLabel), ""view"") ||
+    CONTAINS(LCASE(?propLabel), ""viewer"") ||
+    CONTAINS(LCASE(?propLabel), ""viewership"") ||
+    CONTAINS(LCASE(?propLabel), ""household"") ||
+    CONTAINS(LCASE(?propLabel), ""participants"") ||
+    CONTAINS(LCASE(?propLabel), ""watch"") ||
+    CONTAINS(LCASE(?propLabel), ""hours"")
+  )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?item ?itemLabel
+ORDER BY DESC(?views)
+LIMIT 2","{'head': {'vars': ['item', 'itemLabel', 'views', 'metricLabel']}, 'results': {'bindings': []}}",1,,Bridgerton
