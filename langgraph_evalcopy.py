@@ -178,8 +178,8 @@ Extract entity names needed to verify the claim.
 Output ONLY a JSON array of strings.
 """
         for i, claim in enumerate(state["claims"]): 
-            resp = llm.invoke([("system", prompt), ("user", f"Claim: {claim}")])
-            parsed[i] = [_normalize_label(e) for e in _safe_json_list(resp.content)]
+            resp = llm.invoke([("system", prompt), ("user", f"Claim: {claim}")]) #Getting a response
+            parsed[i] = [_normalize_label(e) for e in _safe_json_list(resp.content)] #Adding entities for the i-th claim to the dictionary as a list
         state["parsed_entities"] = parsed
         return state
 
@@ -198,7 +198,7 @@ Output ONLY a JSON array of strings.
     def find_entities(state):
         out = {}
         for i, ents in state.get("parsed_entities", {}).items():
-            qids = []
+            qids = [] #Creating a list for each entry in parsed_entities
             for e in ents:
                 qid = _wb_search_entity(e)
                 if qid:
@@ -216,15 +216,15 @@ Output ONLY a JSON array of strings.
 
     def create_query(state):
         queries = []
-        for i in range(len(state["claims"])):
+        for i in range(len(state["claims"])): 
             qids = state.get("entity_qids", {}).get(i, [])
-            pids = state.get("relation_pids", {}).get(i, [])
+            pids = state.get("relation_pids", {}).get(i, []) #Getting entity_pids and relation_pids for each query
 
             if len(qids) < 2 or not pids:
                 queries.append(None)
                 continue
 
-            a, b = qids[:2]
+            a, b = qids[:2] #Using 2 qids for now, may need to increase
             p = pids[0]
 
             queries.append(
