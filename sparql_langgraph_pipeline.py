@@ -190,3 +190,6 @@ def run_sparql_pipeline_batch(questions: List[str], max_attempts: int = 3, max_w
 
 # data.to_csv("results_w_langgraph.csv", index=False)
 # print(f"Saved {len(data)} results to results_w_langgraph.csv")
+
+
+
