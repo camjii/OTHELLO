@@ -4,4 +4,11 @@ version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "datasets>=4.5.0",
+    "dotenv>=0.9.9",
+    "ipykernel>=7.1.0",
+    "ipynb>=0.5.1",
+    "openai>=2.14.0",
+    "pandas>=2.3.3",
+]
