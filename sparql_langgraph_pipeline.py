@@ -170,26 +170,5 @@ def run_sparql_pipeline_batch(questions: List[str], max_attempts: int = 3, max_w
 
 
 
-# questions = data['SAE Question'].tolist()
-
-# # Run batch processing
-# states = run_sparql_pipeline_batch(
-#     questions=questions,
-#     max_attempts=3,
-#     max_workers=5
-# )
-
-# # Extract metrics
-# queries = [state['sparql_query'] for state in states]
-# results = [state['results'] for state in states]
-# num_attempts = [state['attempt'] for state in states]
-
-# data['SPARQL'] = queries
-# data['Results'] = results
-# data['Attempts'] = num_attempts
-
-# data.to_csv("results_w_langgraph.csv", index=False)
-# print(f"Saved {len(data)} results to results_w_langgraph.csv")
-
 
 
