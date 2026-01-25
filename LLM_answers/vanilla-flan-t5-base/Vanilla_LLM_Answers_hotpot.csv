@@ -1,0 +1,1391 @@
+Unnamed: 0,AAVE Question,SAE Question,SPARQL,Results,Attempts,names,Answer
+0,"Which magazine started first, Arthur's Magazine or First for Women?","Which magazine was started first, Arthur's Magazine or First for Women?","SELECT ?magazine ?magazineLabel ?inception WHERE {
+  VALUES ?name { ""Arthur's Magazine""@en ""First for Women""@en }
+  ?magazine rdfs:label ?name.
+  ?magazine wdt:P31 wd:Q41298.
+  ?magazine wdt:P571 ?inception.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ASC(?inception)
+LIMIT 1","{'head': {'vars': ['magazine', 'magazineLabel', 'inception']}, 'results': {'bindings': [{'magazine': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q4797714'}, 'inception': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1844-01-01T00:00:00Z'}, 'magazineLabel': {'xml:lang': 'en', 'type': 'literal', 'value': ""Arthur's Magazine""}}]}}",1,Arthur's Magazine,Arthur's Magazine
+1,Da Oberoi family part of a hotel company dat got a head office in what city?,Is the Oberoi family part of a hotel company that has a headquarters in what city?,"SELECT DISTINCT ?company ?companyLabel ?hq ?hqLabel WHERE {
+  ?family rdfs:label ""Oberoi family""@en.
+  {
+    ?company wdt:P127 ?family.
+  }
+  UNION
+  {
+    ?company wdt:P112 ?founder.
+    ?founder wdt:P53 ?family.
+  }
+  ?company wdt:P159 ?hq.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['company', 'companyLabel', 'hq', 'hqLabel']}, 'results': {'bindings': []}}",1,,Mumbai
+2,"Musician and satirist Allie Goertz wrote a song 'bout da ""The Simpsons"" character Milhouse, who Matt Groening named after who?","Who was the ""The Simpsons"" character Milhouse named after?","SELECT ?namedAfter ?namedAfterLabel WHERE {
+  ?milhouse rdfs:label ""Milhouse Van Houten""@en.
+  ?milhouse wdt:P138 ?namedAfter.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['namedAfter', 'namedAfterLabel']}, 'results': {'bindings': [{'namedAfter': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q9588'}, 'namedAfterLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Richard Nixon'}}]}}",1,Richard Nixon,Matt Groening
+3,What nationality was James Henry Miller's wife?,What was the nationality of James Henry Miller's wife?,"SELECT DISTINCT ?wife ?wifeLabel ?nationality ?nationalityLabel WHERE {
+  ?person wdt:P31 wd:Q5;
+          wdt:P1477 ?birthName.
+  FILTER(LCASE(STR(?birthName)) = ""james henry miller"").
+  ?person wdt:P26 ?wife.
+  ?wife wdt:P21 wd:Q6581072;
+        wdt:P27 ?nationality.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['wife', 'wifeLabel', 'nationality', 'nationalityLabel']}, 'results': {'bindings': [{'wife': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q443797'}, 'nationality': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q145'}, 'wifeLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Joan Littlewood'}, 'nationalityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'United Kingdom'}}, {'wife': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2067420'}, 'nationality': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q30'}, 'wifeLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Peggy Seeger'}, 'nationalityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'United States'}}]}}",1,Joan Littlewood,American
+4,"Cadmium Chloride kinda dissolve in dis chemical, it also called what?","What is another name for cadmium chloride, which dissolves in this chemical?","SELECT DISTINCT ?itemAltLabel WHERE {
+  ?item wdt:P31 wd:Q11173.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+  FILTER(LCASE(STR(?itemLabel)) = ""cadmium chloride"")
+}","{'head': {'vars': ['itemAltLabel']}, 'results': {'bindings': []}}",1,,tetrafluoric acid
+5,"Which tennis player won mo' Grand Slam titles, Henri Leconte or Jonathan Stark?","Which tennis player won more Grand Slam titles, Henri Leconte or Jonathan Stark?","SELECT ?player ?playerLabel (COUNT(DISTINCT ?event) AS ?titles) WHERE {
+  VALUES ?name { ""Henri Leconte""@en ""Jonathan Stark""@en }
+  ?player rdfs:label ?name.
+  ?player wdt:P31 wd:Q5; wdt:P641 wd:Q847.
+  ?event wdt:P1346 ?player.
+  ?event (wdt:P361+|wdt:P629/wdt:P361*) ?tournament.
+  VALUES ?tournament { wd:Q132616 wd:Q134233 wd:Q132771 wd:Q132607 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?player ?playerLabel
+ORDER BY DESC(?titles)
+LIMIT 1","{'head': {'vars': ['player', 'playerLabel', 'titles']}, 'results': {'bindings': []}}",1,,Henri Leconte
+6,Which genus of moth in da world's seventh-largest country got only one species?,Which genus of moth in the world's seventh-largest country has only one species?,"SELECT ?genus ?genusLabel WHERE {
+  VALUES ?country { wd:Q668 }  # India
+  ?species wdt:P105 wd:Q7432 ;
+           wdt:P171 ?genus ;
+           wdt:P183 ?country .
+  ?genus wdt:P105 wd:Q34740 .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?genus ?genusLabel
+HAVING (COUNT(DISTINCT ?species) = 1)","{'head': {'vars': ['genus', 'genusLabel']}, 'results': {'bindings': [{'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q21107'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Aerides'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q36396'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Rattus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q45269'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Ophiogomphus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q117557'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Phlegra'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q135936'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Amandava'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q157151'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Salvia'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q194834'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Calliophis'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q222951'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Gallus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q431179'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Treron'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q508859'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Aethopyga'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q593360'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Perdicula'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q656643'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Myophonus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q721407'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Semnopithecus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q735456'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Pomatorhinus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q746347'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Aeshna'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q771870'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Rhipidura'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q900882'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Ducula'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q905044'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Dicaeum'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q936378'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Heliocypha'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q945265'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Appias'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q950461'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Philautus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q956173'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Vachellia'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q960357'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Somatochlora'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1007774'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Galloperdix'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1082724'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Minivet'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1165479'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Flavivirus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1168023'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Paraplectana'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1307565'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Mortonagrion'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1309867'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Pseudagrion'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1311312'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Anisogomphus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1312445'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Bradinopyga'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1375727'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Anotogaster'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1826282'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Bayadera'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1949480'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Theridion'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2066486'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Calocypha'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2109888'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Gegeneophis'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2327016'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Megalestes'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2402646'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Gynacanthaeschna'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2465602'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Trimeresurus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2482185'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Neallogaster'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2674783'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Idiomerus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2700450'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Actinodaphne'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2706018'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Uropeltis'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2790351'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Caconeura'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3012152'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Trachischium'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3141170'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Hottentotta'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3386764'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Dysphaea'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3838101'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Machlolophus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q6389470'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Sonerila'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q6527664'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Lepidoplaga'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q7193899'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Piletocera'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q7239602'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Periaeschna'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q10603231'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Nososticta'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q10809413'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Psilopogon'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q14867498'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Sacada'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q15734705'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Heteroglaux'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q20819719'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Hydrophylax'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q25407338'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Argya'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q55312740'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Pterorhinus'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q80329357'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Indopadilla'}}, {'genus': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q106581021'}, 'genusLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Indoseges'}}]}}",2,Aerides,South African moth
+7,"Who was once seen as da best kick boxer in da world, but he been caught up in a bunch of controversies 'bout his ""unsportsmanlike conduct"" in da sport and crimes of violence outside da ring.","Who was once seen as the best kick boxer in the world, but he has been caught up in a bunch of controversies about his ""unsportsmanlike conduct"" in the sport and crimes of violence outside the ring?","SELECT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5;
+        wdt:P641 wd:Q180634;
+        wdt:P27 wd:Q55, wd:Q1028;
+        wdt:P1399 ?conviction.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel']}, 'results': {'bindings': []}}",1,,john dillinger
+8,"Da Dutch-Belgian TV show dat ""House of Anubis"" was based on first aired in what year?","In what year did the Dutch-Belgian TV show ""House of Anubis"" first air?","SELECT (MIN(YEAR(?firstAir)) AS ?year) WHERE {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api ""EntitySearch"";
+                    wikibase:endpoint ""www.wikidata.org"";
+                    mwapi:search ""House of Anubis"";
+                    mwapi:language ""en"".
+    ?item wikibase:apiOutputItem mwapi:item.
+  }
+  ?item wdt:P31 wd:Q5398426;
+        wdt:P495 wd:Q55, wd:Q31;
+        wdt:P577 ?firstAir.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['year']}, 'results': {'bindings': [{}]}}",1,,1939
+9,What is da length of da track where da 2013 Liqui Moly Bathurst 12 Hour was staged?,What is the length of the track where the 2013 Liqui Moly Bathurst 12 Hour was held?,"SELECT ?track ?trackLabel ?length ?unitLabel WHERE {
+  ?event rdfs:label ""2013 Liqui Moly Bathurst 12 Hour""@en.
+  ?event wdt:P276 ?track.
+  ?track p:P2043 ?lenStmt.
+  ?lenStmt ps:P2043 ?length;
+           wikibase:quantityUnit ?unit.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['track', 'trackLabel', 'length', 'unitLabel']}, 'results': {'bindings': []}}",1,,135 kilometres
+10,"Fast Cars, Danger, Fire and Knives got guest appearances from which hip hop record executive?","Which hip hop record executive made guest appearances on Fast Cars, Danger, Fire and Knives?","SELECT DISTINCT ?person ?personLabel WHERE {
+  ?release rdfs:label ""Fast Cars, Danger, Fire and Knives""@en.
+
+  {
+    ?release p:P175 ?stmt.
+    ?stmt ps:P175 ?person.
+    ?stmt pq:P3831 ?role.
+    ?role rdfs:label ?roleLabel.
+    FILTER(CONTAINS(LCASE(STR(?roleLabel)), ""featur"") || CONTAINS(LCASE(STR(?roleLabel)), ""guest""))
+  }
+  UNION
+  {
+    ?release wdt:P527 ?track.
+    ?track p:P175 ?tstmt.
+    ?tstmt ps:P175 ?person.
+    ?tstmt pq:P3831 ?trole.
+    ?trole rdfs:label ?troleLabel.
+    FILTER(CONTAINS(LCASE(STR(?troleLabel)), ""featur"") || CONTAINS(LCASE(STR(?troleLabel)), ""guest""))
+  }
+
+  ?person wdt:P106 ?occ.
+  ?occ rdfs:label ?occLabel.
+  FILTER(REGEX(LCASE(STR(?occLabel)), ""record label executive|record executive""))
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",1,,elvis presley
+11,"Gunmen from Laredo starred which narrator of ""Frontier""?","Which narrator of ""Frontier"" did gunmen from Laredo star in?","SELECT DISTINCT ?narrator ?narratorLabel WHERE {
+  ?frontier rdfs:label ""Frontier""@en;
+            wdt:P2438 ?narrator.
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Gunmen from Laredo""@en;
+        wdt:P161 ?narrator.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['narrator', 'narratorLabel']}, 'results': {'bindings': []}}",1,,robert mccartney
+12,Where da form of music played by Die Rhöner Säuwäntzt come from?,Where did the form of music played by Die Rhöner Säuwäntzt come from?,"SELECT DISTINCT ?origin ?originLabel WHERE {
+  ?band rdfs:label ""Die Rhöner Säuwäntzt""@de.
+  ?band wdt:P136/wdt:P495 ?origin.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['origin', 'originLabel']}, 'results': {'bindings': [{'origin': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q30'}, 'originLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'United States'}}]}}",1,United States,German folk music
+13,In which football game was Malcolm Smith named Most Valuable player?,In which football game was Malcolm Smith named Most Valuable Player?,"SELECT ?game ?gameLabel WHERE {
+  # Identify Malcolm Smith (born 1989)
+  ?person wdt:P31 wd:Q5;
+          rdfs:label ""Malcolm Smith""@en;
+          wdt:P569 ?dob.
+  FILTER (YEAR(?dob) = 1989)
+
+  {
+    # Participant in event with role ""Most Valuable Player""
+    ?person p:P1344 ?partStmt.
+    ?partStmt ps:P1344 ?game;
+              pq:P2868 ?role.
+    ?role rdfs:label ?roleLabel.
+    FILTER(CONTAINS(LCASE(?roleLabel), ""most valuable player""))
+    ?game wdt:P179 wd:Q41487.  # Super Bowl series
+  }
+  UNION
+  {
+    # Award received with qualifier linking to the game
+    ?person p:P166 ?awardStmt.
+    ?awardStmt ps:P166 ?award.
+    ?award rdfs:label ?awardLabel.
+    FILTER(CONTAINS(LCASE(?awardLabel), ""most valuable player""))
+    ?awardStmt pq:P642 ?game.
+    ?game wdt:P179 wd:Q41487.  # Super Bowl series
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['game', 'gameLabel']}, 'results': {'bindings': []}}",1,,nfl
+14,"What U.S. Highway give access to Zilpo Road, and is also known as Midland Trail?",What U.S. Highway provides access to Zilpo Road and is also known as Midland Trail?,"SELECT ?highway ?highwayLabel WHERE {
+  ?highway (rdfs:label|skos:altLabel) ""Midland Trail""@en.
+  {
+    ?highway wdt:P2789 ?zilpo.
+  } UNION {
+    ?zilpo wdt:P2789 ?highway.
+  }
+  ?zilpo (rdfs:label|skos:altLabel) ""Zilpo Road""@en.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+  FILTER(REGEX(STR(?highwayLabel), ""^U\\.?S\\.?\\s+(Route|Highway)\\b"", ""i""))
+}","{'head': {'vars': ['highway', 'highwayLabel']}, 'results': {'bindings': []}}",1,,Interstate 35
+15,"Da 1988 American comedy film, The Great Outdoors, starred a four-time Academy Award nominee, who got a star on da Hollywood Walk of Fame in what year?","In what year did the four-time Academy Award nominee who starred in the 1988 American comedy film, The Great Outdoors, get a star on the Hollywood Walk of Fame?","SELECT DISTINCT ?year WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""The Great Outdoors""@en;
+        wdt:P577 ?pubdate.
+  FILTER(YEAR(?pubdate) = 1988)
+
+  ?film wdt:P161 ?person.
+
+  {
+    SELECT ?person WHERE {
+      ?person wdt:P1411 ?nom .
+      ?nom wdt:P361 wd:Q19020 .
+    }
+    GROUP BY ?person
+    HAVING (COUNT(DISTINCT ?nom) >= 4)
+  }
+
+  ?person p:P166 ?st .
+  ?st ps:P166 ?award .
+  ?award rdfs:label ?al .
+  FILTER(LANG(?al) = ""en"" && CONTAINS(LCASE(?al), ""hollywood walk of fame""))
+  OPTIONAL { ?st pq:P585 ?d1 }
+  OPTIONAL { ?st pq:P580 ?d2 }
+  BIND(YEAR(COALESCE(?d1, ?d2)) AS ?year)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['year']}, 'results': {'bindings': []}}",1,,1987
+16,What’s da names of da current members of dat American heavy metal band who wrote da music for Hurt Locker Da Musical?,What are the names of the current members of that American heavy metal band who wrote the music for Hurt Locker: The Musical?,"SELECT DISTINCT ?member ?memberLabel WHERE {
+  ?work rdfs:label ""Hurt Locker: The Musical""@en.
+  ?work wdt:P86 ?band.
+  ?band wdt:P136 ?genre.
+  ?genre wdt:P279* wd:Q38848.
+  FILTER(
+    EXISTS { ?band wdt:P17 wd:Q30 } ||
+    EXISTS { ?band wdt:P495 wd:Q30 } ||
+    EXISTS { ?band wdt:P740/wdt:P17 wd:Q30 }
+  ).
+  ?member wdt:P31 wd:Q5.
+  ?member p:P463 ?membership.
+  ?membership ps:P463 ?band.
+  FILTER NOT EXISTS { ?membership pq:P582 ?end }.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['member', 'memberLabel']}, 'results': {'bindings': []}}",1,,"Daryl ""Daddy"" Johnson and Daryl ""Daddy"" Johnson"
+17,"Human Error"" da season finale of da third season of a tv show dat aired on what network?","What network did the season finale of ""Human Error,"" the third season of a TV show, air on?","SELECT DISTINCT ?network ?networkLabel WHERE {
+  ?episode wdt:P31 wd:Q21191270;
+           rdfs:label ""Human Error""@en.
+  { ?episode wdt:P361 ?season. } UNION { ?episode wdt:P179 ?season. }
+  ?season wdt:P31 wd:Q3464665.
+  ?season p:P179 ?seriesStmt.
+  ?seriesStmt ps:P179 ?series;
+              pq:P1545 ""3"".
+  FILTER NOT EXISTS {
+    ?otherEpisode wdt:P31 wd:Q21191270.
+    { ?otherEpisode wdt:P361 ?season. } UNION { ?otherEpisode wdt:P179 ?season. }
+    ?otherEpisode wdt:P155 ?episode.
+  }
+  ?episode wdt:P449 ?network.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['network', 'networkLabel']}, 'results': {'bindings': []}}",1,,NBC
+18,"Dua Lipa, an English singer, songwriter an' model, da album spawned da number-one single ""New Rules"" is a song by English singer Dua Lipa from her eponymous debut studio album, released in what year?","In what year was Dua Lipa's eponymous debut studio album, which spawned the number-one single ""New Rules,"" released?","SELECT (YEAR(?date) AS ?year) WHERE {
+  ?album rdfs:label ""Dua Lipa""@en;
+         wdt:P175 ?artist;
+         wdt:P577 ?date.
+  ?artist rdfs:label ""Dua Lipa""@en.
+  ?song rdfs:label ""New Rules""@en.
+  { ?song wdt:P361 ?album. }
+  UNION
+  { ?album wdt:P658 ?song. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['year']}, 'results': {'bindings': [{'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '2017'}}]}}",1,2017,2007
+19,"American politician Joe Heck ran and ain’t win against Democrat Catherine Cortez Masto, a woman who used to be the 32nd Attorney General of where?","In what state was Catherine Cortez Masto, who previously served as the 32nd Attorney General, from?","SELECT DISTINCT ?state ?stateLabel WHERE {
+  wd:Q1071929 p:P39 ?stmt.
+  ?stmt pq:P1545 ""32"".
+  ?stmt ps:P39 ?position.
+  {
+    ?position wdt:P1001|wdt:P131 ?state.
+  }
+  UNION
+  {
+    ?stmt pq:P642 ?state.
+  }
+  ?state wdt:P31 wd:Q35657.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['state', 'stateLabel']}, 'results': {'bindings': []}}",1,,United States
+20,"Which state the drug stores, where the CEO Warren Bryant, located?","Which state are the drug stores, where the CEO Warren Bryant, located?","SELECT DISTINCT ?state ?stateLabel WHERE {
+  ?store wdt:P169 ?ceo.
+  ?ceo rdfs:label ""Warren Bryant""@en.
+  ?store wdt:P159 ?hq.
+  ?hq wdt:P131* ?state.
+  ?state wdt:P31 wd:Q35657.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['state', 'stateLabel']}, 'results': {'bindings': []}}",1,,New York
+21,Which American politician did Donahue replace?,Which American politician did Donahue replace?,"SELECT DISTINCT ?replaced ?replacedLabel WHERE {
+  ?donahue wdt:P31 wd:Q5; rdfs:label ?donahueName.
+  FILTER(LANG(?donahueName) = ""en"").
+  FILTER(CONTAINS(LCASE(?donahueName), ""donahue"")).
+  {
+    ?donahue wdt:P1365 ?replaced.
+  }
+  UNION
+  {
+    ?donahue p:P39 ?st.
+    ?st pq:P1365 ?replaced.
+  }
+  ?replaced wdt:P31 wd:Q5;
+            wdt:P106 wd:Q82955;
+            wdt:P27 wd:Q30.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['replaced', 'replacedLabel']}, 'results': {'bindings': []}}",1,,John F. Kennedy
+22,"Which band was founded first, Hole, da rock band dat Courtney Love was da frontwoman of, or The Wolfhounds?","Which band was founded first, Hole, the rock band that Courtney Love was the frontwoman of, or The Wolfhounds?","PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+SELECT ?band ?bandLabel ?inception WHERE {
+  VALUES ?name { ""Hole""@en ""The Wolfhounds""@en }
+  ?band wdt:P31/wdt:P279* wd:Q215380;
+        rdfs:label ?name;
+        wdt:P571 ?inception.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ASC(?inception)
+LIMIT 1","{'head': {'vars': ['band', 'bandLabel', 'inception']}, 'results': {'bindings': [{'band': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3523409'}, 'inception': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1985-01-01T00:00:00Z'}, 'bandLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Wolfhounds'}}]}}",1,The Wolfhounds,The Wolfhounds
+23,How old is da female main protagonist of Catchin' Fire?,How old is the female main protagonist of Catching Fire?,"PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+
+SELECT ?actor ?actorLabel ?age WHERE {
+  ?work wdt:P31 wd:Q11424;
+        rdfs:label ""The Hunger Games: Catching Fire""@en.
+  ?work p:P161 ?castStmt.
+  ?castStmt ps:P161 ?actor.
+  ?castStmt pq:P453 ?character.
+  ?character rdfs:label ""Katniss Everdeen""@en.
+  ?actor wdt:P21 wd:Q6581072;
+         wdt:P569 ?dob.
+  BIND(NOW() AS ?now)
+  BIND( YEAR(?now) - YEAR(?dob) - IF(MONTH(?now) < MONTH(?dob) || (MONTH(?now) = MONTH(?dob) && DAY(?now) < DAY(?dob)), 1, 0) AS ?age )
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['actor', 'actorLabel', 'age']}, 'results': {'bindings': [{'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q189490'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Jennifer Lawrence'}, 'age': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '35'}}]}}",1,Jennifer Lawrence,18
+24,Chang Ucchin was born in Korea durin' a time dat ended with da conclusion of what?,"In what year did the Korean War end, which concluded the time during which Chang Ucchin was born?","SELECT ?endYear WHERE {
+  wd:Q8683 wdt:P582 ?end.
+  BIND(YEAR(?end) AS ?endYear)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['endYear']}, 'results': {'bindings': [{'endYear': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1991'}}]}}",1,1991,the Korean War
+25,Who the director of da 2003 movie dat got scenes filmed at da Quality Cafe in Los Angeles?,Who was the director of the 2003 movie that had scenes filmed at the Quality Cafe in Los Angeles?,"SELECT DISTINCT ?film ?filmLabel ?director ?directorLabel WHERE {
+  VALUES ?label { ""Quality Cafe""@en ""Quality Café""@en }
+  ?place rdfs:label ?label.
+  ?place wdt:P131* wd:Q65.
+  ?film wdt:P31 wd:Q11424;
+        wdt:P915 ?place;
+        wdt:P577 ?date;
+        wdt:P57 ?director.
+  FILTER(YEAR(?date) = 2003)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['film', 'filmLabel', 'director', 'directorLabel']}, 'results': {'bindings': []}}",1,,Darren McGavin
+26,"New Faces of 1952 a musical revue with songs and comedy skits, it helped jump start da career of which young performer, and American actress?","In what year was the musical revue ""New Faces of 1952"" created, which featured songs and comedy skits, and which young performer and American actress did it help launch their career?","SELECT ?year ?americanActress ?americanActressLabel WHERE {
+  ?revue rdfs:label ""New Faces of 1952""@en.
+  ?revue wdt:P571 ?inception.
+  BIND(YEAR(?inception) AS ?year)
+
+  { ?revue wdt:P175 ?person. }
+  UNION
+  { ?revue wdt:P161 ?person. }
+
+  ?person wdt:P21 wd:Q6581072;      # female
+          wdt:P27 wd:Q30;           # citizenship: United States
+          wdt:P569 ?dob;            # date of birth (to identify ""young"")
+          wdt:P106 ?occ.            # occupation
+  ?occ wdt:P279* wd:Q33999.         # occupation is (subclass of) actor
+
+  BIND(?person AS ?americanActress)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?dob)
+LIMIT 1","{'head': {'vars': ['year', 'americanActress', 'americanActressLabel']}, 'results': {'bindings': []}}",1,,Bette Midler
+27,Was Pavel Urysohn and Leonid Levin known for da same kinda work?,Were Pavel Urysohn and Leonid Levin known for the same kind of work?,"SELECT ?property ?propertyLabel ?sharedValue ?sharedValueLabel WHERE {
+  {
+    wd:Q216554 wdt:P101 ?sharedValue.
+    wd:Q191871 wdt:P101 ?sharedValue.
+    BIND(wd:P101 AS ?property)
+  }
+  UNION
+  {
+    wd:Q216554 wdt:P106 ?sharedValue.
+    wd:Q191871 wdt:P106 ?sharedValue.
+    BIND(wd:P106 AS ?property)
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['property', 'propertyLabel', 'sharedValue', 'sharedValueLabel']}, 'results': {'bindings': []}}",2,,Pavel Urysohn and Leonid Levin were Russian composers.
+28,Is both The New Pornographers an Kings of Leon American rock bands?,Are both The New Pornographers and Kings of Leon American rock bands?,"PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+ASK {
+  {
+    ?np rdfs:label ""The New Pornographers""@en;
+        wdt:P136/wdt:P279* wd:Q11399;
+        wdt:P495 wd:Q30.
+  }
+  {
+    ?kol rdfs:label ""Kings of Leon""@en;
+         wdt:P136/wdt:P279* wd:Q11399;
+         wdt:P495 wd:Q30.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {}, 'boolean': False}",1,,no
+29,"750 7th Avenue an' 101 Park Avenue, where they at in which city?",Where are 750 7th Avenue and 101 Park Avenue located in which city?,"SELECT DISTINCT ?item ?itemLabel ?city ?cityLabel WHERE {
+  VALUES ?name {
+    ""750 7th Avenue""@en
+    ""750 Seventh Avenue""@en
+    ""101 Park Avenue""@en
+  }
+  ?item (rdfs:label|skos:altLabel) ?name.
+  ?item wdt:P131* ?city.
+  ?city wdt:P31/wdt:P279* wd:Q515.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel', 'city', 'cityLabel']}, 'results': {'bindings': [{'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2782432'}, 'city': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q60'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': '101 Park Avenue'}, 'cityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'New York City'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2451328'}, 'city': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q60'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': '750 Seventh Avenue'}, 'cityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'New York City'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2782432'}, 'city': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q11299'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': '101 Park Avenue'}, 'cityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Manhattan'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2451328'}, 'city': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q11299'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': '750 Seventh Avenue'}, 'cityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Manhattan'}}]}}",1,101 Park Avenue,New York City
+30,"Which actress played da part of dat made-up character Kimberly Ann Hart, in da franchise built 'round a live action superhero TV show takin' most of its footage from da Japanese tokusatsu 'Super Sentai'?",Which actress played the role of that made-up character Kimberly Ann Hart in the franchise based on a live-action superhero TV show that uses most of its footage from the Japanese tokusatsu series 'Super Sentai'?,"SELECT DISTINCT ?actress ?actressLabel WHERE {
+  ?character rdfs:label ""Kimberly Ann Hart""@en.
+  ?work p:P161 ?castStatement.
+  ?castStatement ps:P161 ?actress;
+                 pq:P453 ?character.
+  ?actress wdt:P21 wd:Q6581072.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['actress', 'actressLabel']}, 'results': {'bindings': []}}",1,,Alicia Vikander
+31,"Who was born first, Pablo Trapero or Aleksander Ford?","Who was born first, Pablo Trapero or Aleksander Ford?","SELECT ?person ?personLabel ?birthDate WHERE {
+  VALUES ?name {""Pablo Trapero""@en ""Aleksander Ford""@en}
+  ?person rdfs:label ?name.
+  ?person wdt:P31 wd:Q5;
+          wdt:P569 ?birthDate.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ?birthDate
+LIMIT 1","{'head': {'vars': ['person', 'personLabel', 'birthDate']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1257887'}, 'birthDate': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1908-11-24T00:00:00Z'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Aleksander Ford'}}]}}",1,Aleksander Ford,Pablo Trapero
+32,Is Jane and First for Women both women’s mags?,Are Jane and First for Women both women's magazines?,"SELECT ?item ?itemLabel ?isWomensMagazine WHERE {
+  VALUES ?name { ""Jane""@en ""First for Women""@en }
+  ?item rdfs:label ?name.
+  ?item wdt:P31/wdt:P279* wd:Q41298.
+  BIND(EXISTS {
+    ?item wdt:P31/wdt:P279* ?cls.
+    ?cls rdfs:label ""women's magazine""@en.
+  } AS ?isWomensMagazine)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel', 'isWomensMagazine']}, 'results': {'bindings': [{'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q5454163'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'First for Women'}, 'isWomensMagazine': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q6151058'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Jane'}, 'isWomensMagazine': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}}]}}",1,First for Women,yes
+33,What profession do Nicholas Ray an' Elia Kazan got in common?,What profession did Nicholas Ray and Elia Kazan have in common?,"SELECT ?profession ?professionLabel WHERE {
+  VALUES ?name { ""Nicholas Ray""@en ""Elia Kazan""@en }
+  ?person rdfs:label ?name;
+          wdt:P31 wd:Q5;
+          wdt:P106 ?profession.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?profession ?professionLabel
+HAVING (COUNT(DISTINCT ?name) = 2)","{'head': {'vars': ['profession', 'professionLabel']}, 'results': {'bindings': []}}",2,,film director
+34,Where da company dat bought Aixam based at?,Where is the company that bought Aixam based?,"SELECT DISTINCT ?hq ?hqLabel WHERE {
+  ?company rdfs:label|skos:altLabel ""Aixam""@en;
+           wdt:P31/wdt:P279* wd:Q163740.
+  {
+    ?company wdt:P127 ?buyer.
+  } UNION {
+    ?company wdt:P749 ?buyer.
+  } UNION {
+    ?buyer wdt:P355 ?company.
+  }
+  ?buyer wdt:P159 ?hq.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['hq', 'hqLabel']}, 'results': {'bindings': []}}",1,,New York City
+35,"Which documentary 'bout Finnish rock groups, Adam Clayton Powell or The Saimaa Gesture?","Which documentary is about Finnish rock groups, Adam Clayton Powell or The Saimaa Gesture?","SELECT DISTINCT ?film ?filmLabel WHERE {
+  VALUES ?name { ""Adam Clayton Powell""@en ""The Saimaa Gesture""@en }
+  ?film (rdfs:label|skos:altLabel) ?name.
+  ?film wdt:P31/wdt:P279* wd:Q93204.
+  ?film wdt:P921 ?band.
+  {
+    ?band wdt:P31/wdt:P279* wd:Q5741069.
+    ?band (wdt:P495|wdt:P17) wd:Q33.
+  }
+  UNION
+  {
+    ?band wdt:P31/wdt:P279* wd:Q215380.
+    ?band (wdt:P495|wdt:P17) wd:Q33.
+    ?band wdt:P136/wdt:P279* wd:Q11399.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['film', 'filmLabel']}, 'results': {'bindings': []}}",1,,The Saimaa Gesture
+36,"Who got inducted into da Rock and Roll Hall of Fame, David Lee Roth or Cia Berg?","Who was inducted into the Rock and Roll Hall of Fame, David Lee Roth or Cia Berg?","SELECT DISTINCT ?person ?personLabel WHERE {
+  VALUES ?name { ""David Lee Roth""@en ""Cia Berg""@en }
+  ?person rdfs:label ?name.
+  ?person wdt:P31 wd:Q5.
+  {
+    ?person wdt:P166 ?award.
+    ?award rdfs:label ""Rock and Roll Hall of Fame""@en.
+  }
+  UNION
+  {
+    ?person wdt:P463 ?org.
+    ?org rdfs:label ""Rock and Roll Hall of Fame""@en.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",1,,David Lee Roth
+37,Zimbabwe's Guwe Secondary School got a sister school in what New York county?,In what New York county is Zimbabwe's Guwe Secondary School's sister school located?,"SELECT DISTINCT ?county ?countyLabel WHERE {
+  VALUES ?guweLabel { ""Guwe Secondary School""@en }
+  ?guwe rdfs:label ?guweLabel;
+        wdt:P17 wd:Q954.
+
+  ?prop a wikibase:Property;
+        rdfs:label ?propLabel;
+        wikibase:directClaim ?wdtProp.
+  FILTER(LANG(?propLabel) = ""en"").
+  FILTER(REGEX(STR(?propLabel), ""sister school|twin school|partner school"", ""i"")).
+
+  { ?guwe ?wdtProp ?sister } UNION { ?sister ?wdtProp ?guwe }.
+  ?sister wdt:P31/wdt:P279* wd:Q3914.
+  ?sister wdt:P131* ?county.
+  ?county wdt:P31/wdt:P279* wd:Q13410490.
+  ?county wdt:P131 wd:Q1384.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['county', 'countyLabel']}, 'results': {'bindings': []}}",1,,Suffolk County
+38,"Da Royal Commission into Drug Trafficking (1977–1979) or Woodward Royal Commission was a royal commission started by da New South Wales Government to look into drug trafficking in New South Wales, Australia, especially da links between da New South Wales Police and Mafia, da Honoured Society, which is a Calabrian 'Ndrangheta criminal confederation, started in Melbourne and still active in all of which country?","What country is the Honoured Society, which is a Calabrian 'Ndrangheta criminal confederation started in Melbourne and still active in all of it, based in?","SELECT ?country ?countryLabel WHERE {
+  VALUES ?name { ""Honoured Society""@en ""The Honoured Society""@en }
+  ?item rdfs:label ?name.
+  ?item wdt:P31/wdt:P279* wd:Q3915489.
+  ?item wdt:P17 ?country.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['country', 'countryLabel']}, 'results': {'bindings': []}}",1,,Australia
+39,"Da 337th Flight Test Squadron (337 FLTS) was most recently part of da 46th Test Wing and based at McClellan Air Force Base, a former United States Air Force base located in da North Highlands area of Sacramento County, in which US state?","In which U.S. state is McClellan Air Force Base, a former United States Air Force base located in the North Highlands area of Sacramento County, situated?","SELECT ?state ?stateLabel WHERE {
+  ?base rdfs:label ""McClellan Air Force Base""@en.
+  ?base wdt:P131+ ?state.
+  ?state wdt:P31 wd:Q35657.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['state', 'stateLabel']}, 'results': {'bindings': [{'state': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q99'}, 'stateLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'California'}}]}}",1,California,California
+40,Da axial turbojet Pirna 014 was designed by engineers from dis German aircraft and aircraft engine manufacturer based in which city?,In which city is the German aircraft and aircraft engine manufacturer based that designed the axial turbojet Pirna 014?,"SELECT DISTINCT ?city ?cityLabel WHERE {
+  ?engine rdfs:label ""Pirna 014""@en.
+  VALUES ?rel { wdt:P287 wdt:P176 wdt:P61 }
+  ?engine ?rel ?org.
+  ?org wdt:P31/wdt:P279* wd:Q4830453;
+       wdt:P17 wd:Q183;
+       wdt:P159 ?city.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['city', 'cityLabel']}, 'results': {'bindings': []}}",1,,Berlin
+41,"Which faith is tied to da University of Providence, private university accredited by da NW association of Schools and Colleges and located in da third largest city in Montana after bein' passed by Missoula?","Which faith is associated with the University of Providence, a private university accredited by the NW Association of Schools and Colleges and located in the third largest city in Montana after being passed by Missoula?","SELECT ?faith ?faithLabel WHERE {
+  ?univ rdfs:label ""University of Providence""@en;
+        wdt:P31/wdt:P279* wd:Q3918;
+        wdt:P140 ?faith.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['faith', 'faithLabel']}, 'results': {'bindings': [{'faith': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q9592'}, 'faithLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Catholic Church'}}]}}",1,Catholic Church,Catholicism
+42,Pauline Henry was known as da vocalist of a real popular cover song. Which album was dis song from?,Which album was this song from?,"SELECT ?album ?albumLabel WHERE {
+  VALUES ?song { wd:QXXXX } 
+  { ?song wdt:P361 ?album. }
+  UNION
+  { ?album wdt:P658 ?song. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['album', 'albumLabel']}, 'results': {'bindings': []}}",1,,i Love You
+43,Guitars for Wounded Warriors a album dat was recorded in da village where New York county at?,What album by Guitars for Wounded Warriors was recorded in the village in New York County?,"SELECT DISTINCT ?album ?albumLabel WHERE {
+  ?album wdt:P31 wd:Q482994;
+         wdt:P175 ?artist;
+         (wdt:P276|wdt:P1071|wdt:P483) ?place.
+  ?artist rdfs:label ""Guitars for Wounded Warriors""@en.
+
+  ?place wdt:P131* ?area.
+  ?area rdfs:label ?areaLabel.
+  FILTER(LANG(?areaLabel) = ""en"" && CONTAINS(LCASE(STR(?areaLabel)), ""village"")).
+
+  ?area wdt:P131* ?county.
+  ?county rdfs:label ""New York County""@en.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['album', 'albumLabel']}, 'results': {'bindings': []}}",1,,Suffolk County
+44,"What American country music singer-songwriter, born in May of 1942, sung a duet wit her ex-husband da same year he dropped da song ""The Battle?","What American country music singer-songwriter, born in May of 1942, sang a duet with her ex-husband the same year he released the song ""The Battle?","SELECT DISTINCT ?item ?itemLabel WHERE {
+  ?item wdt:P31 wd:Q5;
+        wdt:P27 wd:Q30;
+        wdt:P569 ?dob.
+  FILTER(YEAR(?dob)=1942 && MONTH(?dob)=5)
+
+  ?item p:P26 ?spouseStmt.
+  ?spouseStmt ps:P26 ?ex.
+  ?spouseStmt pq:P582 ?end.
+  ?ex wdt:P21 wd:Q6581097.
+
+  ?battleSong wdt:P175 ?ex;
+              wdt:P577 ?battleDate;
+              wdt:P31/wdt:P279* wd:Q7366;
+              rdfs:label ""The Battle""@en.
+
+  ?duetSong wdt:P175 ?item, ?ex;
+            wdt:P577 ?duetDate;
+            wdt:P31/wdt:P279* wd:Q7366.
+
+  FILTER(YEAR(?duetDate) = YEAR(?battleDate))
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel']}, 'results': {'bindings': []}}",2,,elizabeth bennett
+45,"Who was born first, Francis Nethersole or Elizabeth Stuart?","Who was born first, Francis Nethersole or Elizabeth Stuart?","SELECT ?person ?personLabel ?dob WHERE {
+  {
+    ?person wdt:P31 wd:Q5;
+            rdfs:label ""Francis Nethersole""@en;
+            wdt:P569 ?dob.
+  }
+  UNION
+  {
+    ?person wdt:P31 wd:Q5;
+            wdt:P26 ?spouse;
+            wdt:P569 ?dob.
+    ?spouse rdfs:label ?spLabel.
+    FILTER(LANG(?spLabel)=""en"").
+    FILTER(REGEX(?spLabel, ""^Frederick V(,| of)""))
+    ?person rdfs:label ?elLabel.
+    FILTER(LANG(?elLabel)=""en"").
+    FILTER(STRSTARTS(?elLabel, ""Elizabeth Stuart""))
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ?dob
+LIMIT 1","{'head': {'vars': ['person', 'personLabel', 'dob']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q18730286'}, 'dob': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1587-01-01T00:00:00Z'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Francis Nethersole'}}]}}",1,Francis Nethersole,Elizabeth Stuart
+46,What do da Hacker-Pschorr Brewery gotta limit to comply wit German regulations?,What does the Hacker-Pschorr Brewery have to limit in order to comply with German regulations?,"SELECT DISTINCT ?what ?whatLabel WHERE {
+  VALUES ?label { ""Hacker-Pschorr Brewery""@en ""Hacker-Pschorr""@en }
+  ?brewery rdfs:label ?label.
+
+  ?compliesProp a wikibase:Property; rdfs:label ""complies with""@en; wikibase:directClaim ?compliesClaim.
+  ?brewery ?compliesClaim ?reg.
+
+  OPTIONAL { ?reg wdt:P17 ?country. }
+  OPTIONAL { ?reg wdt:P1001 ?jurisdiction. }
+  FILTER(?country = wd:Q183 || ?jurisdiction = wd:Q183)
+
+  ?prop2 a wikibase:Property; wikibase:directClaim ?dc2; rdfs:label ?prop2Label.
+  FILTER(LANG(?prop2Label)=""en"" && (CONTAINS(LCASE(?prop2Label), ""limit"") || CONTAINS(LCASE(?prop2Label), ""restriction"") || CONTAINS(LCASE(?prop2Label), ""prohibit"") || CONTAINS(LCASE(?prop2Label), ""allowed"")))
+  ?reg ?dc2 ?what.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['what', 'whatLabel']}, 'results': {'bindings': []}}",1,,brewing capacity
+47,"Don Barry Mason was the founder of da Psychedelic Shamanistic Institute (PSI), which other member dat's Welsh, dat died on 10 April 2016?","Who was the other member of the Psychedelic Shamanistic Institute (PSI), founded by Don Barry Mason, who was Welsh and died on April 10, 2016?","SELECT ?person ?personLabel WHERE {
+  ?psi rdfs:label ?psiLabel.
+  FILTER(LANG(?psiLabel)=""en"" && CONTAINS(LCASE(?psiLabel), ""psychedelic shamanistic institute"")).
+  ?psi wdt:P112 ?founder.
+  ?founder rdfs:label ?founderLabel.
+  FILTER(LANG(?founderLabel)=""en"" && LCASE(?founderLabel) = ""don barry mason"").
+  ?person wdt:P31 wd:Q5;
+          wdt:P463 ?psi;
+          wdt:P570 ?dod.
+  FILTER(?person != ?founder).
+  FILTER (YEAR(?dod) = 2016 && MONTH(?dod) = 4 && DAY(?dod) = 10).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",1,,christopher wilson
+48,What male actor starred in The Messenger?,What male actor starred in The Messenger?,"SELECT DISTINCT ?actor ?actorLabel WHERE {
+  VALUES ?title {""The Messenger""@en}
+  ?film wdt:P31 wd:Q11424;
+        (rdfs:label|skos:altLabel) ?title;
+        wdt:P161 ?actor.
+  ?actor wdt:P21 wd:Q6581097.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['actor', 'actorLabel']}, 'results': {'bindings': [{'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q311804'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Ben Foster'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q104061'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Steve Buscemi'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2617978'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'David Bateson'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q682752'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Peter Friedman'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q315855'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Robert Sheehan'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q15854232'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Jeremy Strong'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1276942'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Eamonn Walker'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q152042'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Peter Francis James'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q11816193'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Philippe Tłokiński'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q201279'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Woody Harrelson'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q11836685'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Sławomir Orzechowski'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3446800'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Cemal Hünal'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q404251'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Grzegorz Małecki'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q362224'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Bradley James'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q2846752'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Andrew Tiernan'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3446906'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Çetin Tekindor'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3696444'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Carl Anthony Payne II'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q16471437'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Aleksandr Mezentsev'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q508904'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Sergey Bodrov, Jr.'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q18565920'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Kaya Akkaya'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q20630818'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Michael Chernus'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q666745'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Gaius Charles'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q708801'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': ""David O'Hara""}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q712727'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Mirosław Baka'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q22963890'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Angel Caban'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q8053042'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Yetkin Dikinciler'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q9140519'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Adam Woronowicz'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q9302964'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Rafał Królikowski'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q28498'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Brendan Sexton III'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q55374'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Jan Frycz'}}, {'actor': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q55367'}, 'actorLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Zbigniew Zamachowski'}}]}}",1,Ben Foster,James Earl Jones
+49,Is Gin and tonic and Paloma both cocktails based on tequila?,Are Gin and Tonic and Paloma both cocktails based on tequila?,"ASK WHERE {
+  ?gin wdt:P31 wd:Q1310239;
+       rdfs:label ?ginLabel;
+       (wdt:P527|wdt:P186|wdt:P2283) wd:Q1705.
+  FILTER(LANG(?ginLabel) = ""en"" && LCASE(STR(?ginLabel)) = ""gin and tonic"").
+
+  ?pal wdt:P31 wd:Q1310239;
+       rdfs:label ?palLabel;
+       (wdt:P527|wdt:P186|wdt:P2283) wd:Q1705.
+  FILTER(LANG(?palLabel) = ""en"" && LCASE(STR(?palLabel)) = ""paloma"").
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {}, 'boolean': False}",1,,no
+50,"Who older, Glenn Hughes or Ross Lynch?","Who is older, Glenn Hughes or Ross Lynch?","SELECT ?older ?olderLabel ?dob WHERE {
+  VALUES ?name {""Glenn Hughes""@en ""Ross Lynch""@en}
+  ?older wdt:P31 wd:Q5;
+         rdfs:label ?name;
+         wdt:P569 ?dob.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY ASC(?dob)
+LIMIT 1","{'head': {'vars': ['older', 'olderLabel', 'dob']}, 'results': {'bindings': [{'older': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q52221361'}, 'dob': {'datatype': 'http://www.w3.org/2001/XMLSchema#dateTime', 'type': 'literal', 'value': '1894-12-07T00:00:00Z'}, 'olderLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Glenn Hughes'}}]}}",1,Glenn Hughes,Glenn Hughes
+51,"What year da creator of da current arrangement of da ""Simpson's Theme"" born?","In what year was the creator of the current arrangement of the ""Simpson's Theme"" born?","SELECT (YEAR(?dob) AS ?year) WHERE {
+  ?arr rdfs:label ?arrLabel.
+  FILTER(LANG(?arrLabel)=""en"").
+  FILTER(REGEX(LCASE(?arrLabel), ""simpson.?s theme"") && CONTAINS(LCASE(?arrLabel), ""current"") && CONTAINS(LCASE(?arrLabel), ""arrang"")).
+  ?arr wdt:P170 ?creator.
+  ?creator wdt:P569 ?dob.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['year']}, 'results': {'bindings': []}}",1,,1939
+52,Da Southern Railway run from Vienna to Graz and da border wit Slovenia at Spielfeld via da first mountain railway built in Europe to use what kinda track?,"In what kind of track did the first mountain railway built in Europe, which runs from Vienna to Graz and the border with Slovenia at Spielfeld, use?","SELECT ?gauge ?gaugeLabel WHERE {
+  ?railway rdfs:label ""Semmering Railway""@en.
+  ?prop a wikibase:Property; rdfs:label ""track gauge""@en; wikibase:directClaim ?p.
+  ?railway ?p ?gauge.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['gauge', 'gaugeLabel']}, 'results': {'bindings': []}}",1,,Da Southern Railway
+53,What show did Cynthia Nixon win da 2004 Primetime Emmy Award for Outstanding Supporting Actress in a Comedy Series an a Screen Actors Guild Award for her performance?,What show did Cynthia Nixon win the 2004 Primetime Emmy Award for Outstanding Supporting Actress in a Comedy Series and a Screen Actors Guild Award for her performance?,"SELECT DISTINCT ?show ?showLabel WHERE {
+  VALUES ?person { wd:Q23551 }
+  
+  ?person p:P166 ?emmyStmt.
+  ?emmyStmt ps:P166 ?emmyAward;
+             pq:P1686 ?show;
+             pq:P585 ?emmyDate.
+  FILTER(YEAR(?emmyDate) = 2004)
+  ?emmyAward rdfs:label ?emmyLabel.
+  FILTER(LANG(?emmyLabel) = ""en"").
+  FILTER(CONTAINS(LCASE(?emmyLabel), ""primetime emmy award for outstanding supporting actress in a comedy series"")).
+  
+  ?person p:P166 ?sagStmt.
+  ?sagStmt ps:P166 ?sagAward;
+           pq:P1686 ?show.
+  ?sagAward rdfs:label ?sagLabel.
+  FILTER(LANG(?sagLabel) = ""en"").
+  FILTER(CONTAINS(LCASE(?sagLabel), ""screen actors guild award"")).
+  
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['show', 'showLabel']}, 'results': {'bindings': []}}",1,,American Idol
+54,"Lee Jun-fan played what character in ""The Green Hornet"" show?","Who did Lee Jun-fan play in the ""Green Hornet"" show?","SELECT ?character ?characterLabel WHERE {
+  VALUES ?person { wd:Q9404 } .
+  ?work wdt:P31/wdt:P279* wd:Q5398426 ;
+        p:P161 ?st ;
+        rdfs:label ?workLabel .
+  FILTER(LANG(?workLabel) = ""en"") .
+  FILTER(CONTAINS(LCASE(?workLabel), ""green hornet"")) .
+  ?st ps:P161 ?person ;
+      pq:P453 ?character .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['character', 'characterLabel']}, 'results': {'bindings': []}}",1,,Lee Jun-fan
+55,"Da 1895/96 Football League season was da eighth in Football League history, with Everton, dey Goodison Park home, is a football stadium located in Walton, Liverpool, in which country?","In which country is Goodison Park, the football stadium located in Walton, Liverpool, where Everton played their home games during the 1895/96 Football League season?","SELECT ?country ?countryLabel WHERE {
+  ?stadium wdt:P31/wdt:P279* wd:Q483110;
+           rdfs:label ""Goodison Park""@en;
+           wdt:P17 ?country.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['country', 'countryLabel']}, 'results': {'bindings': [{'country': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q145'}, 'countryLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'United Kingdom'}}]}}",1,United Kingdom,United Kingdom
+56,"A Head Full of Dreams Tour is da seventh tour by Coldplay, and it had its first show at a stadium known as Estadio Unico and owned by who?","Who owns the stadium known as Estadio Unico, where the first show of the A Head Full of Dreams Tour took place?","SELECT DISTINCT ?owner ?ownerLabel WHERE {
+  ?tour rdfs:label ""A Head Full of Dreams Tour""@en.
+  ?concert wdt:P361 ?tour;
+           wdt:P1545 ?ord;
+           wdt:P276 ?stadium.
+  FILTER(?ord IN (""1"",""01"",""001""))
+  ?stadium wdt:P31/wdt:P279* wd:Q483110.
+  FILTER(EXISTS {
+    ?stadium (rdfs:label|skos:altLabel) ?name .
+    FILTER(REGEX(LCASE(STR(?name)), ""estadio único|estadio unico""))
+  })
+  ?stadium wdt:P127 ?owner.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['owner', 'ownerLabel']}, 'results': {'bindings': []}}",1,,Grupo Unico
+57,"Roger Avary (born August 23, 1965) a Canadian film and TV producer, screenwriter, and director in da American mass media industry, he wrote da screenplay for Beowulf, a 2007 British-American 3D motion capture epic fantasy film, directed by who?","Who directed the 2007 British-American 3D motion capture epic fantasy film Beowulf, which was written by Roger Avary, a Canadian film and TV producer, screenwriter, and director in the American mass media industry, born on August 23, 1965?","SELECT DISTINCT ?director ?directorLabel WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Beowulf""@en;
+        wdt:P577 ?date;
+        wdt:P58 ?writer;
+        wdt:P57 ?director;
+        wdt:P495 wd:Q30, wd:Q145.
+  FILTER(YEAR(?date) = 2007)
+  ?writer rdfs:label ""Roger Avary""@en;
+          wdt:P569 ""1965-08-23T00:00:00Z""^^xsd:dateTime.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['director', 'directorLabel']}, 'results': {'bindings': []}}",1,,Christopher Nolan
+58,"Da American Pre-Code comedy film featurin' an American actress, dancer, and singer, widely known for performin' in films and RKO's musical films, was released in what year?","In what year was the American Pre-Code comedy film featuring an American actress, dancer, and singer, who was widely known for performing in films and RKO's musical films, released?","SELECT ?film ?filmLabel (MIN(YEAR(?date)) AS ?year) WHERE {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint ""www.wikidata.org"";
+                    wikibase:api ""EntitySearch"";
+                    mwapi:search ""Ginger Rogers"";
+                    mwapi:language ""en"".
+    ?person wikibase:apiOutputItem mwapi:item.
+  }
+  ?film wdt:P31 wd:Q11424;
+        wdt:P161 ?person;
+        wdt:P136/wdt:P279* wd:Q157443;
+        wdt:P495 wd:Q30;
+        wdt:P577 ?date.
+  FILTER(?date < ""1934-07-01T00:00:00Z""^^xsd:dateTime)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?film ?filmLabel
+ORDER BY ?year","{'head': {'vars': ['film', 'filmLabel', 'year']}, 'results': {'bindings': [{'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q18150015'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Follow the Leader'}, 'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1930'}}, {'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q3989651'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Tip-Off'}, 'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1931'}}, {'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q20814914'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'You Said a Mouthful'}, 'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1932'}}, {'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q135268'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'A Shriek in the Night'}, 'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1933'}}, {'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q12129881'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Twenty Million Sweethearts'}, 'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1934'}}, {'film': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q947098'}, 'filmLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'The Gay Divorcee'}, 'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1934'}}]}}",1,Follow the Leader,2001
+59,"An edited version of ""Just the Two of Us"" hit number two on da ""Billboard"" Hot 100 behind a song written and composed by Donna Weiss and Jackie DeShannon which spent how many weeks at No. 1 on da ""Billboard"" Hot 100?","In what year did the song ""Just the Two of Us"" reach number two on the ""Billboard"" Hot 100, behind a song written and composed by Donna Weiss and Jackie DeShannon, which spent how many weeks at number one on the ""Billboard"" Hot 100?","PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX ps: <http://www.wikidata.org/prop/statement/>
+PREFIX pq: <http://www.wikidata.org/prop/qualifier/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+SELECT ?year (COUNT(DISTINCT ?date1) AS ?weeksAtNumberOne) WHERE {
+  VALUES ?chart { wd:Q833889 }  # Billboard Hot 100
+  ?song wdt:P31 wd:Q7366; rdfs:label ?songLabel.
+  FILTER(LANG(?songLabel)=""en"" && REGEX(?songLabel, ""^Just the Two of Us( \\(.*\\))?$""))
+  ?song p:P1352 ?s2.
+  ?s2 ps:P1352 2; pq:P642 ?chart; pq:P585 ?date2.
+  BIND(YEAR(?date2) AS ?year)
+
+  ?behindSong p:P1352 ?sTop.
+  ?sTop ps:P1352 1; pq:P642 ?chart; pq:P585 ?date2.
+
+  ?dw rdfs:label ""Donna Weiss""@en.
+  ?jds rdfs:label ""Jackie DeShannon""@en.
+  ?behindSong (wdt:P86|wdt:P676) ?dw.
+  ?behindSong (wdt:P86|wdt:P676) ?jds.
+
+  ?behindSong p:P1352 ?sTopAll.
+  ?sTopAll ps:P1352 1; pq:P642 ?chart; pq:P585 ?date1.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?year
+LIMIT 1","{'head': {'vars': ['year', 'weeksAtNumberOne']}, 'results': {'bindings': []}}",2,,three
+60,"Which band got more members, Saint Motel or Curve?","Which band had more members, Saint Motel or Curve?","SELECT ?band ?bandLabel (COUNT(DISTINCT ?member) AS ?memberCount) WHERE {
+  VALUES ?name { ""Saint Motel""@en ""Curve""@en }
+  ?band rdfs:label ?name;
+        wdt:P31/wdt:P279* wd:Q215380.
+  {
+    ?member wdt:P31 wd:Q5;
+            wdt:P463 ?band.
+  }
+  UNION
+  {
+    ?band wdt:P527 ?member.
+    ?member wdt:P31 wd:Q5.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?band ?bandLabel
+ORDER BY DESC(?memberCount)","{'head': {'vars': ['band', 'bandLabel', 'memberCount']}, 'results': {'bindings': [{'band': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1145885'}, 'bandLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Curve'}, 'memberCount': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1'}}]}}",1,Curve,Curve
+61,"Funnybot"" da second episode of da fifteenth season of which American animated TV show, created by Trey Parker and Matt Stone?","In what American animated TV show, created by Trey Parker and Matt Stone, is ""Funnybot"" the second episode of the fifteenth season?","SELECT ?series ?seriesLabel WHERE {
+  ?episode wdt:P31 wd:Q21191270;
+           rdfs:label ""Funnybot""@en.
+
+  ?episode p:P361 ?seasonStmt.
+  ?seasonStmt ps:P361 ?season;
+              pq:P1545 ?epOrd.
+  FILTER(xsd:integer(?epOrd) = 2)
+
+  ?season wdt:P31 wd:Q3464665.
+  ?season p:P179 ?seriesStmt.
+  ?seriesStmt ps:P179 ?series;
+              pq:P1545 ?seasonOrd.
+  FILTER(xsd:integer(?seasonOrd) = 15)
+
+  ?series wdt:P31/wdt:P279* wd:Q581714;
+          wdt:P495 wd:Q30;
+          wdt:P170 ?creator1, ?creator2.
+
+  ?creator1 rdfs:label ""Trey Parker""@en.
+  ?creator2 rdfs:label ""Matt Stone""@en.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['series', 'seriesLabel']}, 'results': {'bindings': []}}",1,,The Simpsons
+62,"Which private research university located in Chestnut Hill, Massachusetts, Boston College or Stanford University?","Which private research university, located in Chestnut Hill, Massachusetts, is Boston College or Stanford University?","SELECT ?item ?itemLabel WHERE {
+  VALUES ?name { ""Boston College""@en ""Stanford University""@en }
+  ?item rdfs:label ?name.
+  ?item (wdt:P131|wdt:P159|wdt:P276)/wdt:P131* ?place.
+  ?place rdfs:label ""Chestnut Hill""@en.
+  ?place wdt:P131* wd:Q771.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel']}, 'results': {'bindings': [{'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q49118'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Boston College'}}]}}",1,Boston College,Boston College
+63,"What American stage, film, an' television actor who also appeared in a lotta musicals, played Samson in da 1949 film ""Samson an' Delilah""?","What American stage, film, and television actor who also appeared in a lot of musicals played Samson in the 1949 film ""Samson and Delilah""?","SELECT ?actor ?actorLabel WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""Samson and Delilah""@en;
+        wdt:P577 ?date.
+  FILTER(YEAR(?date) = 1949)
+  ?film p:P161 ?cast.
+  ?cast ps:P161 ?actor;
+        pq:P453 ?role.
+  ?role rdfs:label ""Samson""@en.
+  ?actor wdt:P27 wd:Q30.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['actor', 'actorLabel']}, 'results': {'bindings': []}}",1,,Freddie Highmore
+64,Iqaluit Airport an Canadian North based outta what country?,In what country is Iqaluit Airport based?,"SELECT ?country ?countryLabel WHERE {
+  ?airport wdt:P31/wdt:P279* wd:Q1248784;
+           rdfs:label ""Iqaluit Airport""@en;
+           wdt:P17 ?country.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['country', 'countryLabel']}, 'results': {'bindings': [{'country': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q16'}, 'countryLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Canada'}}]}}",1,Canada,Canada
+65,What political party was the man who officially opened da Royal Spa Centre in '72?,What political party was the man who officially opened the Royal Spa Centre in 1972?,"SELECT ?party ?partyLabel WHERE {
+  ?place rdfs:label ""Royal Spa Centre""@en.
+  ?place wdt:P1619 ?openingDate.
+  FILTER(YEAR(?openingDate) = 1972)
+
+  ?property a wikibase:Property;
+            rdfs:label ?propLabel;
+            wikibase:directClaim ?openProp.
+  FILTER(LANG(?propLabel) = ""en"")
+  FILTER(REGEX(LCASE(STR(?propLabel)), ""opened by|officially opened by|inaugurated by""))
+
+  ?place ?openProp ?person.
+  ?person wdt:P31 wd:Q5;
+          wdt:P21 wd:Q6581097;
+          wdt:P102 ?party.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['party', 'partyLabel']}, 'results': {'bindings': []}}",1,,Democratic Party
+66,Which Oscar-nominated movie was wrote by da screenwriter who wrote a 1991 romantic drama based on a screenplay by Sooni Taraporevala?,Which Oscar-nominated movie was written by the screenwriter who wrote a 1991 romantic drama based on a screenplay by Sooni Taraporevala?,"SELECT DISTINCT ?oscarFilm ?oscarFilmLabel WHERE {
+  ?film wdt:P31 wd:Q11424;
+        wdt:P577 ?date;
+        wdt:P58 ?writer.
+  FILTER(?date >= ""1991-01-01T00:00:00Z""^^xsd:dateTime && ?date < ""1992-01-01T00:00:00Z""^^xsd:dateTime)
+
+  ?writer rdfs:label ""Sooni Taraporevala""@en.
+
+  ?oscarFilm wdt:P58 ?writer;
+             wdt:P1411 ?award.
+  FILTER(?oscarFilm != ?film)
+
+  { ?award wdt:P361 wd:Q19020. }
+  UNION
+  { ?award wdt:P279* wd:Q19020. }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['oscarFilm', 'oscarFilmLabel']}, 'results': {'bindings': []}}",1,,Avatar
+67,Is both Tim McIlrath an' Spike Slawson American punk rock musicians?,Are Tim McIlrath and Spike Slawson American punk rock musicians?,"SELECT DISTINCT ?person ?personLabel WHERE {
+  VALUES ?name { ""Tim McIlrath""@en ""Spike Slawson""@en }
+  ?person rdfs:label ?name.
+  ?person wdt:P31 wd:Q5;
+          wdt:P27 wd:Q30;
+          wdt:P106 ?occ.
+  ?occ wdt:P279* wd:Q639669.
+  {
+    ?person wdt:P136/wdt:P279* wd:Q18894
+  }
+  UNION
+  {
+    ?person wdt:P463 ?band .
+    ?band wdt:P136/wdt:P279* wd:Q18894
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",1,,no
+68,"Da Golden Globe Award winner for best actor from ""Roseanne"" starred 'longside what actress in Gigantic?","Who was the Golden Globe Award winner for best actor from ""Roseanne"" and which actress did they star alongside in ""Gigantic""?","SELECT DISTINCT ?actor ?actorLabel ?actress ?actressLabel WHERE {
+  ?roseanne rdfs:label ""Roseanne""@en;
+            wdt:P161 ?actor.
+  ?actor wdt:P31 wd:Q5;
+         wdt:P166 ?award.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+  FILTER(CONTAINS(LCASE(?awardLabel), ""golden globe"") && CONTAINS(LCASE(?awardLabel), ""actor"") && !CONTAINS(LCASE(?awardLabel), ""supporting"")).
+  ?gig rdfs:label ""Gigantic""@en;
+       wdt:P31 wd:Q11424;
+       wdt:P161 ?actor, ?actress.
+  ?actress wdt:P31 wd:Q5;
+           wdt:P21 wd:Q6581072.
+}","{'head': {'vars': ['actor', 'actorLabel', 'actress', 'actressLabel']}, 'results': {'bindings': []}}",1,,Jennifer Aniston
+69,"Da expert mentor to da celebrities dat perform on ""Splash!"" won da 2009 FINA World Championship in da individual event at what age?","Who was the expert mentor to the celebrities who performed on ""Splash!"" and at what age did they win the 2009 FINA World Championship in the individual event?","PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX bd: <http://www.bigdata.com/rdf#>
+
+SELECT DISTINCT ?mentor ?mentorLabel ?age WHERE {
+  ?show rdfs:label ""Splash!""@en;
+        wdt:P31/wdt:P279* wd:Q5398426;
+        wdt:P495 wd:Q145;
+        wdt:P161 ?mentor.
+  ?mentor wdt:P569 ?dob.
+
+  ?event wdt:P1346 ?mentor;
+         rdfs:label ?eventLabel;
+         wdt:P361*/rdfs:label ?seriesLabel.
+  FILTER(LANG(?eventLabel)=""en"").
+  FILTER(LANG(?seriesLabel)=""en"").
+  FILTER(CONTAINS(LCASE(?eventLabel), ""platform"")).
+  FILTER(!CONTAINS(LCASE(?eventLabel), ""synch"")).
+  FILTER(
+    CONTAINS(LCASE(?seriesLabel), ""2009 world aquatics championships"") ||
+    CONTAINS(LCASE(?seriesLabel), ""2009 fina world championships"")
+  ).
+
+  OPTIONAL { ?event wdt:P585 ?date. }
+  OPTIONAL { ?event wdt:P580 ?start. }
+  BIND(COALESCE(?date, ?start) AS ?winDate)
+  FILTER(BOUND(?winDate))
+
+  BIND(
+    YEAR(?winDate) - YEAR(?dob) -
+    IF(MONTH(?winDate) < MONTH(?dob) || (MONTH(?winDate) = MONTH(?dob) && DAY(?winDate) < DAY(?dob)), 1, 0)
+    AS ?age
+  )
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['mentor', 'mentorLabel', 'age']}, 'results': {'bindings': []}}",2,,18
+70,"Still Da Baddest da fourth studio album by American rapper Trina, comin' after da poor chart performance, ""I Got a Thang for You"" featuring which American singer/songwriter, record producer, business woman, and television personality, who was born in Oakland, California?","What year was ""Still Da Baddest,"" the fourth studio album by American rapper Trina, released, and which American singer/songwriter, record producer, businesswoman, and television personality, who was born in Oakland, California, is featured on the track ""I Got a Thang for You,"" which followed the album's poor chart performance?","SELECT ?releaseYear ?featuredArtist ?featuredArtistLabel WHERE {
+  ?album wdt:P31 wd:Q482994; rdfs:label ?albumLabel; wdt:P577 ?releaseDate.
+  FILTER(LANG(?albumLabel) = ""en"").
+  FILTER(LCASE(STR(?albumLabel)) = ""still da baddest"").
+  BIND(YEAR(?releaseDate) AS ?releaseYear).
+
+  ?album (wdt:P527|^wdt:P361) ?song.
+  ?song rdfs:label ?songLabel.
+  FILTER(LANG(?songLabel) = ""en"").
+  FILTER(LCASE(STR(?songLabel)) = ""i got a thang for you"").
+
+  ?song wdt:P175 ?featuredArtist.
+  ?featuredArtist wdt:P19 wd:Q17042; wdt:P27 wd:Q30.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['releaseYear', 'featuredArtist', 'featuredArtistLabel']}, 'results': {'bindings': [{'featuredArtist': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q233229'}, 'featuredArtistLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Keyshia Cole'}, 'releaseYear': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '2008'}}]}}",1,Keyshia Cole,Trina Michelle Obama
+71,What job Am Rong an' Alexandre Rockwell got in common?,What job did Am Rong and Alexandre Rockwell have in common?,"SELECT DISTINCT ?occupation ?occupationLabel WHERE {
+  {
+    SELECT DISTINCT ?occupation WHERE {
+      ?p1 rdfs:label ""Am Rong""@en;
+          wdt:P31 wd:Q5;
+          wdt:P106 ?occupation.
+    }
+  }
+  {
+    SELECT DISTINCT ?occupation WHERE {
+      ?p2 rdfs:label ""Alexandre Rockwell""@en;
+          wdt:P31 wd:Q5;
+          wdt:P106 ?occupation.
+    }
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['occupation', 'occupationLabel']}, 'results': {'bindings': [{'occupation': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1414443'}, 'occupationLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'filmmaker'}}]}}",3,filmmaker,actor
+72,"El Nuevo Cojo and Golf Magazine both special interest publications, but which one owned by Time Inc?","Is El Nuevo Cojo and Golf Magazine both special interest publications, but which one is owned by Time Inc?","SELECT ?item ?itemLabel ?isSpecialInterest ?ownedByTimeInc WHERE {
+  VALUES ?title { ""El Nuevo Cojo""@en ""Golf Magazine""@en }
+  ?item rdfs:label ?title.
+
+  ?timeInc rdfs:label ""Time Inc.""@en.
+
+  BIND(
+    (EXISTS {
+      ?item wdt:P31 ?class.
+      ?class rdfs:label ?classLabel.
+      FILTER(LANG(?classLabel)=""en"" && CONTAINS(LCASE(?classLabel), ""special"") && CONTAINS(LCASE(?classLabel), ""interest""))
+    } || EXISTS {
+      ?item wdt:P136 ?genre.
+      ?genre rdfs:label ?genreLabel.
+      FILTER(LANG(?genreLabel)=""en"" && CONTAINS(LCASE(?genreLabel), ""special"") && CONTAINS(LCASE(?genreLabel), ""interest""))
+    }) AS ?isSpecialInterest
+  )
+
+  BIND(EXISTS { ?item wdt:P127 ?timeInc } AS ?ownedByTimeInc)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel', 'isSpecialInterest', 'ownedByTimeInc']}, 'results': {'bindings': [{'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q975634'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Golf Magazine'}, 'isSpecialInterest': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}, 'ownedByTimeInc': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'true'}}, {'item': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q5351700'}, 'itemLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'El Nuevo Cojo'}, 'isSpecialInterest': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}, 'ownedByTimeInc': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}}]}}",1,Golf Magazine,Golf Magazine
+73,Who fundin’ da bowlin’ team dat includes da school bus driver for Springfield Elementary School?,Who funded the bowling team that includes the school bus driver for Springfield Elementary School?,"SELECT DISTINCT ?funder ?funderLabel WHERE {
+  ?school rdfs:label ""Springfield Elementary School""@en.
+  ?driver wdt:P108 ?school.
+  ?driver wdt:P106 ?occ.
+  ?occ rdfs:label ""bus driver""@en.
+  { ?driver wdt:P463 ?team. } UNION { ?driver wdt:P54 ?team. }
+  ?team wdt:P641 ?sport.
+  ?sport rdfs:label ""bowling""@en.
+  { ?team wdt:P859 ?funder. } UNION { ?team wdt:P8324 ?funder. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['funder', 'funderLabel']}, 'results': {'bindings': []}}",1,,Da Bowlin'
+74,What city George Washington University Hospital an' MedStar Washington Hospital Center be in?,In what city is George Washington University Hospital and MedStar Washington Hospital Center located?,"SELECT ?hospital ?hospitalLabel ?city ?cityLabel WHERE {
+  VALUES ?name {
+    ""George Washington University Hospital""@en
+    ""MedStar Washington Hospital Center""@en
+  }
+  ?hospital rdfs:label ?name.
+  ?hospital wdt:P31/wdt:P279* wd:Q16917.
+  ?hospital wdt:P131 ?city.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['hospital', 'hospitalLabel', 'city', 'cityLabel']}, 'results': {'bindings': [{'hospital': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q5546034'}, 'city': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q61'}, 'hospitalLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'George Washington University Hospital'}, 'cityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Washington, D.C.'}}, {'hospital': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q5546034'}, 'city': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q61'}, 'hospitalLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'George Washington University Hospital'}, 'cityLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Washington, D.C.'}}]}}",1,George Washington University Hospital,Washington D.C.
+75,What’s da connection between Peter O'Meara and Norman Dike?,What is the connection between Peter O'Meara and Norman Dike?,"SELECT DISTINCT ?work ?workLabel ?role ?roleLabel WHERE {
+  ?actor rdfs:label ""Peter O'Meara""@en.
+  {
+    ?work p:P161 ?stmt.
+    ?stmt ps:P161 ?actor;
+          pq:P453 ?role.
+  }
+  UNION
+  {
+    ?work wdt:P161 ?actor;
+          wdt:P674 ?role.
+  }
+  ?role rdfs:label ?roleLabel.
+  FILTER(LANG(?roleLabel) = ""en"" && CONTAINS(LCASE(STR(?roleLabel)), ""norman dike"")).
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['work', 'workLabel', 'role', 'roleLabel']}, 'results': {'bindings': []}}",1,,Peter O'Meara and Norman Dike
+76,"What author done contributed to stuff like ""New Statesmen"", ""The Nation"", and ""The Atlantic"", among others, while also being linked to Dysteleology?","What author contributed to works such as ""New Statesmen"", ""The Nation"", and ""The Atlantic"", among others, while also being associated with Dysteleology?","SELECT ?author ?authorLabel WHERE {
+  VALUES ?magName { ""New Statesman""@en ""The Nation""@en ""The Atlantic""@en }
+  ?mag rdfs:label ?magName.
+  ?author wdt:P31 wd:Q5;
+          wdt:P106/wdt:P279* wd:Q36180.
+  { ?author wdt:P767 ?mag. } UNION { ?author wdt:P108 ?mag. }
+  ?dyst rdfs:label ""Dysteleology""@en.
+  FILTER(EXISTS { ?author ?p ?dyst. })
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+GROUP BY ?author ?authorLabel
+HAVING (COUNT(DISTINCT ?mag) = 3)","{'head': {'vars': ['author', 'authorLabel']}, 'results': {'bindings': []}}",1,,William Shakespeare
+77,Who made da prototype pacemaker used by da 34th President of da USA?,Who made the prototype pacemaker used by the 34th President of the USA?,"SELECT ?maker ?makerLabel WHERE {
+  ?pres p:P39 ?posStmt.
+  ?posStmt ps:P39 wd:Q11696; pq:P1545 ""34"".
+  ?item wdt:P1535 ?pres; rdfs:label ?label.
+  FILTER(LANG(?label) = ""en"").
+  FILTER(CONTAINS(LCASE(?label), ""pacemaker"") && CONTAINS(LCASE(?label), ""prototype"")).
+  OPTIONAL { ?item wdt:P176 ?manufacturer. }
+  OPTIONAL { ?item wdt:P170 ?creator. }
+  BIND(COALESCE(?manufacturer, ?creator) AS ?maker)
+  FILTER(BOUND(?maker))
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['maker', 'makerLabel']}, 'results': {'bindings': []}}",1,,GE
+78,Which publishin' company done published Bizarre and a sister publication 'bout da anomalous phenomena popularized by Charles Fort?,Which publishing company published Bizarre and a sister publication about the anomalous phenomena popularized by Charles Fort?,"SELECT DISTINCT ?publisher ?publisherLabel WHERE {
+  ?bizarre wdt:P31 wd:Q41298;
+           rdfs:label ""Bizarre""@en;
+           wdt:P123 ?publisher.
+  ?sister wdt:P31 wd:Q41298;
+          rdfs:label ""Fortean Times""@en;
+          wdt:P123 ?publisher.
+  ?publisher wdt:P31/wdt:P279* wd:Q2085381.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['publisher', 'publisherLabel']}, 'results': {'bindings': []}}",1,,The New York Times
+79,"Who performed da lead single on da album Friends in Low Places, No Fences, dat reached #1 on Billboard?","Who performed the lead single on the album Friends in Low Places, No Fences, that reached number one on Billboard?","SELECT DISTINCT ?performer ?performerLabel WHERE {
+  ?song wdt:P31 wd:Q134556;
+        wdt:P175 ?performer;
+        wdt:P361 ?album;
+        rdfs:label ""Friends in Low Places""@en.
+  ?album rdfs:label ""No Fences""@en.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['performer', 'performerLabel']}, 'results': {'bindings': []}}",1,,elvis presley
+80,Hate to Feel the tenth track on what Alice in Chains' album dat peaked at number six on da Billboard 200?,In what year did the tenth track on Alice in Chains' album peak at number six on the Billboard 200?,"SELECT ?year WHERE {
+  ?band rdfs:label ""Alice in Chains""@en.
+  ?album wdt:P31 wd:Q482994; wdt:P175 ?band.
+  {
+    ?album p:P527 ?partStmt.
+    ?partStmt pq:P1545 ""10"".
+  }
+  UNION
+  {
+    ?album p:P658 ?trackStmt.
+    ?trackStmt pq:P1545 ""10"".
+  }
+  ?chart rdfs:label ""Billboard 200""@en.
+  ?album p:P1344 ?chartStmt.
+  ?chartStmt ps:P1344 ?chart;
+             pq:P1352 ?pos;
+             pq:P585 ?date.
+  FILTER(?pos = 6)
+  BIND(YEAR(?date) AS ?year)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 1","{'head': {'vars': ['year']}, 'results': {'bindings': []}}",1,,Love and Death
+81,"Da lead singer an guitarist in da Portland, Oregon rock band wit John Gourley, Zach Carothers, Kyle O'Quin, Jason Sechrist an Eric Howk, go by what alias?","What alias do the lead singer and guitarist in the Portland, Oregon rock band with John Gourley, Zach Carothers, Kyle O'Quin, Jason Sechrist, and Eric Howk go by?","SELECT ?lead ?leadLabel ?alias WHERE {
+  ?john rdfs:label ""John Gourley""@en.
+  ?zach rdfs:label ""Zach Carothers""@en.
+  ?kyle rdfs:label ""Kyle O'Quin""@en.
+  ?jason rdfs:label ""Jason Sechrist""@en.
+  ?eric rdfs:label ""Eric Howk""@en.
+
+  ?john wdt:P463 ?band.
+  ?zach wdt:P463 ?band.
+  ?kyle wdt:P463 ?band.
+  ?jason wdt:P463 ?band.
+  ?eric wdt:P463 ?band.
+
+  ?lead wdt:P463 ?band;
+        wdt:P106 wd:Q177220, wd:Q855091;
+        skos:altLabel ?alias.
+  FILTER(LANG(?alias)=""en"")
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['lead', 'leadLabel', 'alias']}, 'results': {'bindings': []}}",1,,Eric Howk
+82,What year da winner of da 2016 Marrakesh ePrix born?,In what year was the winner of the 2016 Marrakesh ePrix born?,"SELECT DISTINCT ?year WHERE {
+  ?race rdfs:label ""2016 Marrakesh ePrix""@en;
+        wdt:P1346 ?winner.
+  ?winner wdt:P569 ?dob.
+  BIND(YEAR(?dob) AS ?year)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['year']}, 'results': {'bindings': [{'year': {'datatype': 'http://www.w3.org/2001/XMLSchema#integer', 'type': 'literal', 'value': '1988'}}]}}",1,1988,2015
+83,"South Korean actor Kim Yool-ho starred in what 2016 movie directed by Yeon Sang-ho and starring actors Gong Yoo, Jung Yu-mi, and Ma Dong-seok?","In what 2016 movie did South Korean actor Kim Yool-ho star, directed by Yeon Sang-ho and starring actors Gong Yoo, Jung Yu-mi, and Ma Dong-seok?","SELECT DISTINCT ?film ?filmLabel WHERE {
+  ?film wdt:P31 wd:Q11424;
+        wdt:P57 ?director;
+        wdt:P161 ?gongYoo, ?jungYumi, ?maDongSeok, ?kimYoolho;
+        wdt:P577 ?date.
+  FILTER(YEAR(?date) = 2016)
+  ?director rdfs:label ""Yeon Sang-ho""@en.
+  ?gongYoo rdfs:label ""Gong Yoo""@en.
+  ?jungYumi rdfs:label ""Jung Yu-mi""@en.
+  ?maDongSeok rdfs:label ""Ma Dong-seok""@en.
+  ?kimYoolho rdfs:label ""Kim Yool-ho""@en.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['film', 'filmLabel']}, 'results': {'bindings': []}}",1,,The Jungle Book
+84,"Accordin' to da 2006 census, what’s da population of da city where James Iroha Uchechukwu was born?","According to the 2006 census, what is the population of the city where James Iroha Uchechukwu was born?","SELECT ?place ?placeLabel ?population WHERE {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:api ""EntitySearch"".
+    bd:serviceParam wikibase:endpoint ""www.wikidata.org"".
+    bd:serviceParam mwapi:search ""James Iroha Uchechukwu"".
+    bd:serviceParam mwapi:language ""en"".
+    ?person wikibase:apiOutputItem mwapi:item.
+  }
+  ?person wdt:P31 wd:Q5;
+          wdt:P19 ?place.
+  ?place wdt:P31/wdt:P279* wd:Q515.
+  ?place p:P1082 ?popStatement.
+  ?popStatement ps:P1082 ?population;
+               pq:P585 ?date.
+  FILTER(YEAR(?date) = 2006)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['place', 'placeLabel', 'population']}, 'results': {'bindings': [{'place': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q465022'}, 'population': {'datatype': 'http://www.w3.org/2001/XMLSchema#decimal', 'type': 'literal', 'value': '717291'}, 'placeLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Enugu'}}]}}",2,Enugu,"57,069"
+85,What actor in da movie D.C. Cab also had a role in da TV show Barney Miller?,What actor in the movie D.C. Cab also had a role in the TV show Barney Miller?,"SELECT DISTINCT ?person ?personLabel WHERE {
+  ?film wdt:P31 wd:Q11424;
+        rdfs:label ""D.C. Cab""@en;
+        wdt:P161 ?person.
+  ?show wdt:P31 wd:Q5398426;
+        rdfs:label ""Barney Miller""@en;
+        wdt:P161 ?person.
+  ?person wdt:P31 wd:Q5.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': [{'person': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q1665344'}, 'personLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Max Gail'}}]}}",1,Max Gail,James Earl Jones
+86,Which industry Richard Hawley an' Chicago's Catherine belong to?,Which industry does Richard Hawley and Chicago's Catherine belong to?,"SELECT ?item ?itemLabel ?industry ?industryLabel WHERE {
+  VALUES ?title { ""Richard Hawley""@en ""Catherine (band)""@en }
+  ?article schema:about ?item;
+           schema:isPartOf <https://en.wikipedia.org/>;
+           schema:name ?title.
+  ?item wdt:P452 ?industry.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['item', 'itemLabel', 'industry', 'industryLabel']}, 'results': {'bindings': []}}",2,,film
+87,Is Pam Veasey an' Jon Jost both American?,Are Pam Veasey and Jon Jost both American?,"ASK WHERE {
+  ?veasey rdfs:label ""Pam Veasey""@en;
+          wdt:P31 wd:Q5;
+          wdt:P27 wd:Q30.
+  ?jost   rdfs:label ""Jon Jost""@en;
+          wdt:P31 wd:Q5;
+          wdt:P27 wd:Q30.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {}, 'boolean': True}",1,,no
+88,Maurice Hines and his brother was famous for what?,What was Maurice Hines and his brother famous for?,"SELECT DISTINCT ?topic ?topicLabel WHERE {
+  ?maurice rdfs:label ""Maurice Hines""@en.
+  ?maurice wdt:P31 wd:Q5.
+  ?maurice wdt:P3373 ?brother.
+  ?brother wdt:P31 wd:Q5.
+  ?brother wdt:P21 wd:Q6581097.
+  {
+    ?maurice wdt:P101 ?topic.
+    ?brother wdt:P101 ?topic.
+  }
+  UNION
+  {
+    ?maurice wdt:P106 ?topic.
+    ?brother wdt:P106 ?topic.
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['topic', 'topicLabel']}, 'results': {'bindings': []}}",1,,filmmaking
+89,Is da New Orleans Outfall Canals da same length as da Augusta Canal?,Is the New Orleans Outfall Canals the same length as the Augusta Canal?,"SELECT ?nola ?nolaLabel ?lenNola ?augusta ?augustaLabel ?lenAugusta ?sameLength WHERE {
+  ?nola rdfs:label ""New Orleans Outfall Canals""@en.
+  ?augusta rdfs:label ""Augusta Canal""@en.
+  OPTIONAL { ?nola wdt:P2043 ?lenNola. }
+  OPTIONAL { ?augusta wdt:P2043 ?lenAugusta. }
+  BIND(IF(BOUND(?lenNola) && BOUND(?lenAugusta) && (?lenNola = ?lenAugusta), true, false) AS ?sameLength)
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['nola', 'nolaLabel', 'lenNola', 'augusta', 'augustaLabel', 'lenAugusta', 'sameLength']}, 'results': {'bindings': [{'nola': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q16982631'}, 'augusta': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q4820897'}, 'nolaLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'New Orleans Outfall Canals'}, 'augustaLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Augusta Canal'}, 'sameLength': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}}, {'nola': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q16982631'}, 'augusta': {'type': 'uri', 'value': 'http://www.wikidata.org/entity/Q49241548'}, 'nolaLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'New Orleans Outfall Canals'}, 'augustaLabel': {'xml:lang': 'en', 'type': 'literal', 'value': 'Augusta Canal'}, 'sameLength': {'datatype': 'http://www.w3.org/2001/XMLSchema#boolean', 'type': 'literal', 'value': 'false'}}]}}",1,New Orleans Outfall Canals,Da New Orleans Outfall Canals is da same length as da Augusta Canal.
+90,Which stadium da teams owned by Myra Kraft's husband play at?,Which stadium do the teams owned by Myra Kraft's husband play at?,"SELECT DISTINCT ?stadium ?stadiumLabel WHERE {
+  wd:Q314829 wdt:P1830 ?team.
+  ?team wdt:P115 ?stadium.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['stadium', 'stadiumLabel']}, 'results': {'bindings': []}}",1,,St. Louis Cardinals
+91,What southern California based band done covered Blue Öyster Cult's Godzilla?,"What Southern California-based band covered Blue Öyster Cult's ""Godzilla""?","SELECT DISTINCT ?band ?bandLabel WHERE {
+  ?work wdt:P31/wdt:P279* wd:Q7366;
+        rdfs:label ""Godzilla""@en;
+        wdt:P175 ?origBand.
+  ?origBand rdfs:label ""Blue Öyster Cult""@en.
+
+  {
+    ?recording wdt:P2550 ?work;
+               wdt:P175 ?band.
+  } UNION {
+    ?coverWork wdt:P144 ?work;
+               wdt:P175 ?band.
+  }
+
+  ?band wdt:P31 wd:Q215380.
+  FILTER(?band != ?origBand)
+
+  ?band (wdt:P740|wdt:P159)/(wdt:P131|wdt:P361)* ?region.
+  ?region rdfs:label ""Southern California""@en.
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['band', 'bandLabel']}, 'results': {'bindings': []}}",1,,Red Hot Chili Peppers
+92,"Da Swedish-British entertainment studio executive and film executive producer, who was da executive producer for a 2016 American action thriller film directed by Babak Najafi, currently serve?","Who is the Swedish-British entertainment studio executive and film executive producer, who was the executive producer for a 2016 American action thriller film directed by Babak Najafi, currently serving?","SELECT DISTINCT ?person ?personLabel WHERE {
+  ?film wdt:P31 wd:Q11424;
+        wdt:P57 wd:Q304214;
+        wdt:P577 ?date;
+        wdt:P495 wd:Q30;
+        wdt:P1431 ?person.
+  FILTER(YEAR(?date) = 2016)
+  ?person wdt:P27 wd:Q34;
+          wdt:P27 wd:Q145.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",1,,a United States Senator
+93,"an Emmy Award winner and two-time Tony Award winner, was on episode 15 of da third season of ""Chuck"". what her name?","Who is the Emmy Award winner and two-time Tony Award winner who was on episode 15 of the third season of ""Chuck""?","SELECT ?person ?personLabel WHERE {
+  ?season p:P179 ?seriesStmt.
+  ?seriesStmt ps:P179 wd:Q217401;
+              pq:P1545 ""3"".
+  ?episode p:P4908 ?seasonStmt.
+  ?seasonStmt ps:P4908 ?season;
+              pq:P1545 ""15"".
+  ?episode wdt:P161 ?person.
+
+  FILTER EXISTS {
+    ?person p:P166 ?emmyStmt.
+    ?emmyStmt ps:P166 ?emmyAward.
+    ?emmyAward wdt:P31/wdt:P279* wd:Q19020.
+  }
+
+  {
+    SELECT ?person (COUNT(?tonyStmt) AS ?tonyWins) WHERE {
+      ?person p:P166 ?tonyStmt.
+      ?tonyStmt ps:P166 ?tonyAward.
+      ?tonyAward wdt:P31/wdt:P279* wd:Q486748.
+    } GROUP BY ?person
+    HAVING (?tonyWins >= 2)
+  }
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",1,,sarah taylor
+94,"What’s da current name of da Atlanta Mansion built for da daughter of da 41st Mayor of Atlanta, Georgia?","What is the current name of the Atlanta Mansion built for the daughter of the 41st Mayor of Atlanta, Georgia?","SELECT DISTINCT ?mansion ?mansionLabel WHERE {
+  {
+    ?mayor p:P39 ?posStmt.
+    ?posStmt ps:P39 ?office.
+    ?office wdt:P279* wd:Q30185.
+    ?posStmt pq:P1001 wd:Q23556; pq:P1545 ""41"".
+  }
+  UNION
+  {
+    ?office wdt:P1001 wd:Q23556; rdfs:label ""Mayor of Atlanta""@en.
+    {
+      ?office p:P1308 ?holderStmt.
+      ?holderStmt ps:P1308 ?mayor; pq:P1545 ""41"".
+    }
+    UNION
+    {
+      ?mayor p:P39 ?posStmt2.
+      ?posStmt2 ps:P39 ?office; pq:P1545 ""41"".
+    }
+  }
+  ?daughter wdt:P22 ?mayor; wdt:P21 wd:Q6581072.
+  ?mansion wdt:P31/wdt:P279* wd:Q123705;
+           wdt:P131 wd:Q23556.
+  { ?mansion wdt:P88 ?daughter. } UNION { ?mansion wdt:P127 ?daughter. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['mansion', 'mansionLabel']}, 'results': {'bindings': []}}",1,,Atlanta Mansion
+95,Who came up wit da type of script used in autographs?,Who came up with the type of script used in autographs?,"SELECT DISTINCT ?inventor ?inventorLabel WHERE {
+  VALUES ?label { ""autograph""@en ""signature""@en }
+  ?item rdfs:label ?label.
+  ?item wdt:P282 ?script.
+  { ?script wdt:P61 ?inventor. }
+  UNION
+  { ?script wdt:P170 ?inventor. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['inventor', 'inventorLabel']}, 'results': {'bindings': []}}",1,,Thomas Jefferson
+96,Bout what percentage of da global population is made up of da ethnic group Princess Fragrant was made to improve relations with?,What percentage of the global population is made up of the ethnic group that Princess Fragrant was made to improve relations with?,"SELECT ?ethnic ?ethnicLabel ?percentage WHERE {
+  # Find the property ""made to improve relations with"" and its direct claim IRI
+  ?propEntity a wikibase:Property;
+              rdfs:label ""made to improve relations with""@en;
+              wikibase:directClaim ?improveRelProp.
+
+  # Find the item ""Princess Fragrant"" (label or alias)
+  ?work (rdfs:label|skos:altLabel) ""Princess Fragrant""@en;
+        ?improveRelProp ?ethnic.
+
+  # Ensure it's an ethnic group and get its population
+  ?ethnic wdt:P31 wd:Q41710;
+          wdt:P1082 ?ethPop.
+
+  # Get world (Earth) population
+  wd:Q2 wdt:P1082 ?worldPop.
+
+  BIND((xsd:decimal(?ethPop) / xsd:decimal(?worldPop) * 100) AS ?percentage)
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['ethnic', 'ethnicLabel', 'percentage']}, 'results': {'bindings': []}}",1,,89.4%
+97,Who was da Oklahoma politician dat helped bring bout da Boren-McCurdy proposals in 1992?,Who was the Oklahoma politician who helped bring about the Boren-McCurdy proposals in 1992?,"SELECT DISTINCT ?person ?personLabel WHERE {
+  ?proposal rdfs:label ?label.
+  FILTER(LANG(?label) = ""en"").
+  FILTER(CONTAINS(LCASE(?label), ""boren"") && CONTAINS(LCASE(?label), ""mccurdy"")).
+
+  { ?proposal wdt:P138 ?person. }
+  UNION
+  { ?proposal wdt:P710 ?person. }
+
+  ?person wdt:P106 wd:Q82955.
+
+  FILTER (
+    EXISTS {
+      ?person p:P39 ?posStmt.
+      ?posStmt pq:P768 ?district.
+      ?district wdt:P131* wd:Q1649.
+    } ||
+    EXISTS { ?person wdt:P19/wdt:P131* wd:Q1649 } ||
+    EXISTS { ?person wdt:P551/wdt:P131* wd:Q1649 }
+  )
+
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+LIMIT 10","{'head': {'vars': ['person', 'personLabel']}, 'results': {'bindings': []}}",3,,bobby mccurdy
+98,The Thoen Stone on display at a museum in what county?,In what county is the Thoen Stone on display at a museum?,"SELECT DISTINCT ?county ?countyLabel WHERE {
+  ?stone rdfs:label ""Thoen Stone""@en.
+  {
+    ?stone wdt:P276 ?museum.
+  }
+  UNION
+  {
+    ?stone wdt:P195 ?museum.
+  }
+  ?museum wdt:P31/wdt:P279* wd:Q33506.
+  ?museum wdt:P131* ?county.
+  ?county wdt:P31/wdt:P279* wd:Q13410422.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}","{'head': {'vars': ['county', 'countyLabel']}, 'results': {'bindings': []}}",1,,Suffolk County
+99,Is Children's National Medical Center or MedStar Washington Hospital Center da largest private hospital in D.C.?,Is Children's National Medical Center or MedStar Washington Hospital Center the largest private hospital in D.C.?,"SELECT DISTINCT ?hospital ?hospitalLabel ?beds WHERE {
+  VALUES ?searchName { ""MedStar Washington Hospital Center""@en ""Children's National Medical Center""@en ""Children's National Hospital""@en }
+  ?hospital (rdfs:label|skos:altLabel) ?searchName.
+  ?hospital wdt:P31/wdt:P279* wd:Q16917;
+           wdt:P131* wd:Q61;
+           wdt:P1083 ?beds.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language ""en"". }
+}
+ORDER BY DESC(?beds)
+LIMIT 1","{'head': {'vars': ['hospital', 'hospitalLabel', 'beds']}, 'results': {'bindings': []}}",2,,MedStar Washington Hospital Center
