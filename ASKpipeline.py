@@ -2,13 +2,13 @@ from typing import TypedDict, List, Optional
 from langgraph.graph import StateGraph, END
 from langchain_openai import ChatOpenAI
 from SPARQLWrapper import SPARQLWrapper, JSON
-import os
-from dotenv import load_dotenv
 import json
 import requests
 import re
-
+import os 
+from dotenv import load_dotenv
 load_dotenv()
+
 key = os.getenv("OPENAI_API_KEY")
 
 
@@ -18,6 +18,7 @@ def build_verification_graph():
         answer: str
         rephrased_claim: str
         claims: List[str]
+
 
         parsed_entities: dict
         parsed_relations: dict
