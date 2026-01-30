@@ -6,13 +6,14 @@ import json
 import requests
 import re
 import os 
+import math
 from dotenv import load_dotenv
 load_dotenv()
 
 key = os.getenv("OPENAI_API_KEY")
 
 
-def build_verification_graph():
+def build_verification_graph(debug: bool = False, debug_fn=print):
     class GraphState(TypedDict, total=False):
         question: str
         answer: str
@@ -64,6 +65,13 @@ def build_verification_graph():
     def _normalize_label(s):
         s = s.strip().strip('"').strip("'")
         return re.sub(r"\s+", " ", s)
+
+    def _safe_text(v):
+        if v is None:
+            return ""
+        if isinstance(v, float) and math.isnan(v):
+            return ""
+        return str(v)
 
     session = requests.Session()
     entity_cache = {} #Builds a memory for searched entities
@@ -138,7 +146,8 @@ def build_verification_graph():
         return state
 
     def route_rephrase(state):
-        if len(state.get("answer", "").split(".")) == 1:
+        answer = _safe_text(state.get("answer", ""))
+        if len(answer.split(".")) == 1:
             return "rephrase"
         return "skip_rephrase"
 
@@ -157,7 +166,7 @@ Return ONLY the claim text.
         return state
 
     def skip_rephrase(state):
-        state["rephrased_claim"] = state.get("answer", "").strip()
+        state["rephrased_claim"] = _safe_text(state.get("answer", "")).strip()
         return state
 
     def split_response_into_claims(state):
@@ -181,6 +190,8 @@ Output ONLY a JSON array of strings.
         for i, claim in enumerate(state["claims"]): 
             resp = llm.invoke([("system", prompt), ("user", f"Claim: {claim}")]) #Getting a response
             parsed[i] = [_normalize_label(e) for e in _safe_json_list(resp.content)] #Adding entities for the i-th claim to the dictionary as a list
+        if debug:
+            debug_fn("parsed_entities:", parsed)
         state["parsed_entities"] = parsed
         return state
 
@@ -193,6 +204,8 @@ Output ONLY a JSON array of strings.
         for i, claim in enumerate(state["claims"]):
             resp = llm.invoke([("system", prompt), ("user", f"Claim: {claim}")])
             parsed[i] = [_normalize_label(r) for r in _safe_json_list(resp.content)]
+        if debug:
+            debug_fn("parsed_relations:", parsed)
         state["parsed_relations"] = parsed
         return state
 
@@ -205,6 +218,8 @@ Output ONLY a JSON array of strings.
                 if qid:
                     qids.append(qid)
             out[i] = qids
+        if debug:
+            debug_fn("entity_qids:", out)
         state["entity_qids"] = out
         return state
 
@@ -212,6 +227,8 @@ Output ONLY a JSON array of strings.
         out = {}
         for i, rels in state.get("parsed_relations", {}).items():
             out[i] = [pid for r in rels if (pid := _wb_search_property(r))]
+        if debug:
+            debug_fn("relation_pids:", out)
         state["relation_pids"] = out
         return state
 
@@ -235,13 +252,26 @@ UNION
 {{ wd:{b} wdt:{p} wd:{a} . }}
 }}"""
             )
+        
+        queries = [q.replace('\n', '')  if q else None for q in queries]
+
 
         state["queries"] = queries
+        if debug:
+            debug_fn("queries:", queries)
         return state
+    
 
     def run_query(state):
-        sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-        sparql.setReturnFormat(JSON)
+        url = "https://query.wikidata.org/sparql" 
+        
+        # sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
+        # # SPARQLWrapper versions vary; support both user-agent APIs.
+        # if hasattr(sparql, "setUserAgent"):
+        #     sparql.setUserAgent("cekruger (cekruger99@gmail.com)")
+        # elif hasattr(sparql, "addCustomHttpHeader"):
+        #     sparql.addCustomHttpHeader("User-Agent", "cekruger (cekruger99@gmail.com)")
+        # sparql.setReturnFormat(JSON)
 
         results = []
         for query in state.get("queries", []):
@@ -249,13 +279,16 @@ UNION
                 results.append(None)
                 continue
             try:
-                sparql.setQuery(query)
-                out = sparql.query().convert()
-                results.append(out.get("boolean"))
+                r = requests.get(url, params ={'query': query, 'format': 'json'})
+                data = r.json()
+                results.append(data['boolean'])
             except Exception:
                 results.append(None)
+                state.setdefault("errors", []).append(f"SPARQL error for query: {query}")
 
         state["results"] = results
+        if debug:
+            debug_fn("results:", results)
         return state
 
     def verdicts(state):
