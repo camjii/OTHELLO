@@ -1,0 +1,103 @@
+{
+  "mintaka": [
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None",
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None",
+        "False"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "False",
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    }
+  ],
+  "qald": [
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "False"
+      ],
+      "Majority": "None"
+    }
+  ],
+  "hotpot": [
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "False",
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None",
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    }
+  ]
+}

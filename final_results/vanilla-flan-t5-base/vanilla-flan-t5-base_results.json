@@ -1,0 +1,92 @@
+{
+  "mintaka": [
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [
+        "False",
+        "None",
+        "False"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [
+        "False",
+        "None"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [
+        "False"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [],
+      "Majority": "False"
+    }
+  ],
+  "qald": [
+    {
+      "Results": [],
+      "Majority": "None"
+    },
+    {
+      "Results": [],
+      "Majority": "None"
+    },
+    {
+      "Results": [
+        "None"
+      ],
+      "Majority": "None"
+    },
+    {
+      "Results": [],
+      "Majority": "None"
+    },
+    {
+      "Results": [],
+      "Majority": "None"
+    }
+  ],
+  "hotpot": [
+    {
+      "Results": [
+        "None",
+        "None"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [
+        "False",
+        "False"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [
+        "False",
+        "None"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [
+        "False"
+      ],
+      "Majority": "False"
+    },
+    {
+      "Results": [],
+      "Majority": "False"
+    }
+  ]
+}

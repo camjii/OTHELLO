@@ -1,0 +1,594 @@
+{
+  "flan-t5-small": {
+    "mintaka": [
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      }
+    ],
+    "qald": [
+      {
+        "Results": [
+          "True"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "None"
+      }
+    ],
+    "hotpot": [
+      {
+        "Results": [
+          "None",
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      }
+    ]
+  },
+  "flan-t5-base": {
+    "mintaka": [
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "False"
+        ],
+        "Majority": "None"
+      }
+    ],
+    "qald": [
+      {
+        "Results": [
+          "True"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      }
+    ],
+    "hotpot": [
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      }
+    ]
+  },
+  "flan-t5-large": {
+    "mintaka": [
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      }
+    ],
+    "qald": [
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "None"
+      }
+    ],
+    "hotpot": [
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      }
+    ]
+  },
+  "vanilla-flan-t5-small": {
+    "mintaka": [
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      }
+    ],
+    "qald": [
+      {
+        "Results": [],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      }
+    ],
+    "hotpot": [
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [],
+        "Majority": "False"
+      }
+    ]
+  },
+  "vanilla-flan-t5-base": {
+    "mintaka": [
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False",
+          "None",
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [],
+        "Majority": "False"
+      }
+    ],
+    "qald": [
+      {
+        "Results": [],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      }
+    ],
+    "hotpot": [
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False",
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False",
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [],
+        "Majority": "False"
+      }
+    ]
+  },
+  "vanilla-flan-t5-large": {
+    "mintaka": [
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "False"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "None"
+      },
+      {
+        "Results": [],
+        "Majority": "None"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "None"
+      }
+    ],
+    "qald": [
+      {
+        "Results": [
+          "True"
+        ],
+        "Majority": "True"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "True"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "True"
+      },
+      {
+        "Results": [],
+        "Majority": "True"
+      },
+      {
+        "Results": [],
+        "Majority": "True"
+      }
+    ],
+    "hotpot": [
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False",
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "False"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "None"
+        ],
+        "Majority": "False"
+      },
+      {
+        "Results": [
+          "None",
+          "None"
+        ],
+        "Majority": "False"
+      }
+    ]
+  }
+}
