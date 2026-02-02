@@ -1,0 +1,500 @@
+{
+  "flan-t5-small": {
+    "mintaka": {
+      "rows": [
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 1
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    },
+    "qald": {
+      "rows": [
+        {
+          "Results": true
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        }
+      ],
+      "totals": {
+        "Trues": 1,
+        "Falses": 1
+      },
+      "pct_totals": {
+        "percent_true": 50.0,
+        "percent_false": 50.0
+      }
+    },
+    "hotpot": {
+      "rows": [
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 3
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    }
+  },
+  "flan-t5-base": {
+    "mintaka": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 3
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    },
+    "qald": {
+      "rows": [
+        {
+          "Results": true
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        }
+      ],
+      "totals": {
+        "Trues": 1,
+        "Falses": 1
+      },
+      "pct_totals": {
+        "percent_true": 50.0,
+        "percent_false": 50.0
+      }
+    },
+    "hotpot": {
+      "rows": [
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 3
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    }
+  },
+  "flan-t5-large": {
+    "mintaka": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 1
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    },
+    "qald": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 1
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    },
+    "hotpot": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 1
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    }
+  },
+  "vanilla-flan-t5-small": {
+    "mintaka": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 3
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    },
+    "qald": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 0
+      },
+      "pct_totals": {
+        "percent_true": null,
+        "percent_false": null
+      }
+    },
+    "hotpot": {
+      "rows": [
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 2
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    }
+  },
+  "vanilla-flan-t5-base": {
+    "mintaka": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 3
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    },
+    "qald": {
+      "rows": [
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 0
+      },
+      "pct_totals": {
+        "percent_true": null,
+        "percent_false": null
+      }
+    },
+    "hotpot": {
+      "rows": [
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 2
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    }
+  },
+  "vanilla-flan-t5-large": {
+    "mintaka": {
+      "rows": [
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 3
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    },
+    "qald": {
+      "rows": [
+        {
+          "Results": true
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 1,
+        "Falses": 1
+      },
+      "pct_totals": {
+        "percent_true": 50.0,
+        "percent_false": 50.0
+      }
+    },
+    "hotpot": {
+      "rows": [
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": false
+        },
+        {
+          "Results": null
+        },
+        {
+          "Results": null
+        }
+      ],
+      "totals": {
+        "Trues": 0,
+        "Falses": 3
+      },
+      "pct_totals": {
+        "percent_true": 0.0,
+        "percent_false": 100.0
+      }
+    }
+  }
+}

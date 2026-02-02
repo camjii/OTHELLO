@@ -238,8 +238,8 @@ Output ONLY a JSON array of strings.
             qids = state.get("entity_qids", {}).get(i, [])
             pids = state.get("relation_pids", {}).get(i, []) #Getting entity_pids and relation_pids for each query
 
-            if len(qids) < 2 or not pids:
-                queries.append(None)
+            if len(qids) < 2 or not pids: #Query is only none if there is less than two entities or no relations 
+                #queries.append(None)
                 continue
 
             a, b = qids[:2] #Using 2 qids for now, may need to increase
@@ -253,7 +253,7 @@ UNION
 }}"""
             )
         
-        queries = [q.replace('\n', '')  if q else None for q in queries]
+        queries = [q.replace('\n', '') for q in queries]
 
 
         state["queries"] = queries
@@ -276,19 +276,20 @@ UNION
         results = []
         for query in state.get("queries", []):
             if not query:
-                results.append(None)
                 continue
             try:
                 r = requests.get(url, params ={'query': query, 'format': 'json'})
                 data = r.json()
-                results.append(data['boolean'])
+                results.append(bool(data.get("boolean", False)))
             except Exception:
-                results.append(None)
+                results.append(False)
                 state.setdefault("errors", []).append(f"SPARQL error for query: {query}")
 
         state["results"] = results
+        state["results_sum"] = sum(results)
         if debug:
             debug_fn("results:", results)
+            debug_fn("results_sum:", state["results_sum"])
         return state
 
     def verdicts(state):
@@ -343,4 +344,8 @@ UNION
     graph.add_edge("run", "verdicts")
     graph.add_edge("verdicts", END)
 
+
+
+    
     return graph.compile()
+

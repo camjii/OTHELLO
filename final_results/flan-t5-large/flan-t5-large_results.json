@@ -1,103 +1,83 @@
 {
-  "mintaka": [
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
+  "mintaka": {
+    "rows": [
+      {
+        "Results": null
+      },
+      {
+        "Results": null
+      },
+      {
+        "Results": false
+      },
+      {
+        "Results": null
+      },
+      {
+        "Results": null
+      }
+    ],
+    "totals": {
+      "Trues": 0,
+      "Falses": 1
     },
-    {
-      "Results": [
-        "None",
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "None",
-        "False"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "False",
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
+    "pct_totals": {
+      "percent_true": 0.0,
+      "percent_false": 100.0
     }
-  ],
-  "qald": [
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
+  },
+  "qald": {
+    "rows": [
+      {
+        "Results": null
+      },
+      {
+        "Results": null
+      },
+      {
+        "Results": null
+      },
+      {
+        "Results": null
+      },
+      {
+        "Results": false
+      }
+    ],
+    "totals": {
+      "Trues": 0,
+      "Falses": 1
     },
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "False"
-      ],
-      "Majority": "None"
+    "pct_totals": {
+      "percent_true": 0.0,
+      "percent_false": 100.0
     }
-  ],
-  "hotpot": [
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
+  },
+  "hotpot": {
+    "rows": [
+      {
+        "Results": null
+      },
+      {
+        "Results": false
+      },
+      {
+        "Results": null
+      },
+      {
+        "Results": null
+      },
+      {
+        "Results": null
+      }
+    ],
+    "totals": {
+      "Trues": 0,
+      "Falses": 1
     },
-    {
-      "Results": [
-        "False",
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "None",
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
-    },
-    {
-      "Results": [
-        "None"
-      ],
-      "Majority": "None"
+    "pct_totals": {
+      "percent_true": 0.0,
+      "percent_false": 100.0
     }
-  ]
+  }
 }

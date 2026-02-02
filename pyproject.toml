@@ -34,6 +34,7 @@ dependencies = [
     "httpx==0.28.1",
     "huggingface-hub==0.36.0",
     "idna==3.11",
+    "ipdb>=0.13.13",
     "ipykernel==7.1.0",
     "ipynb==0.5.1",
     "ipython==9.9.0",
