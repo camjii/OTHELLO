@@ -1,83 +1,272 @@
 {
   "mintaka": {
-    "rows": [
-      {
-        "Results": false
-      },
-      {
-        "Results": null
-      },
-      {
-        "Results": null
-      },
-      {
-        "Results": null
-      },
-      {
-        "Results": null
-      }
-    ],
-    "totals": {
-      "Trues": 0,
-      "Falses": 1
+    "method": "pipeline",
+    "raw_data": {
+      "factual_count": 2,
+      "hallucination_count": 15,
+      "total_verified": 17
     },
-    "pct_totals": {
-      "percent_true": 0.0,
-      "percent_false": 100.0
-    }
+    "performance_metrics": {
+      "factual_accuracy_pct": 11.76470588235294,
+      "hallucination_rate_pct": 88.23529411764706
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "What was the latest U.S. state to join the union that isn't Hawaii?",
+          "answer": "Hawaii"
+        },
+        {
+          "question": "Which series is older, Metroid or Super Mario Bros?",
+          "answer": "Metroid"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "What is the seventh tallest mountain in North America?",
+          "answer": "El Diente Peak"
+        },
+        {
+          "question": "Which actor was the star of Titanic and was born in Los Angeles, California?",
+          "answer": "I don't know"
+        },
+        {
+          "question": "Where was the singer of \"Genie in a Bottle\" born?",
+          "answer": "New York"
+        }
+      ]
+    },
+    "detailed_results": [
+      false,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      false,
+      false,
+      true,
+      null,
+      null,
+      false,
+      null,
+      false,
+      null,
+      false,
+      null,
+      null,
+      false,
+      false,
+      null,
+      null,
+      null,
+      false,
+      null,
+      false,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false
+    ]
   },
   "qald": {
-    "rows": [
-      {
-        "Results": true
-      },
-      {
-        "Results": null
-      },
-      {
-        "Results": null
-      },
-      {
-        "Results": null
-      },
-      {
-        "Results": false
-      }
-    ],
-    "totals": {
-      "Trues": 1,
-      "Falses": 1
+    "method": "pipeline",
+    "raw_data": {
+      "factual_count": 5,
+      "hallucination_count": 8,
+      "total_verified": 13
     },
-    "pct_totals": {
-      "percent_true": 50.0,
-      "percent_false": 50.0
-    }
+    "performance_metrics": {
+      "factual_accuracy_pct": 38.46153846153847,
+      "hallucination_rate_pct": 61.53846153846154
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "Which airports are in California, USA?",
+          "answer": "Los Angeles International Airport"
+        },
+        {
+          "question": "Which U.S. state was admitted most recently?",
+          "answer": "nevada"
+        },
+        {
+          "question": "Who was the husband of Amanda Palmer?",
+          "answer": "Neil Gaiman"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "Which U.S. state was Butch Otter the governor of?",
+          "answer": "Idaho"
+        },
+        {
+          "question": "In which country was Bill Gates born?",
+          "answer": "United States"
+        },
+        {
+          "question": "Which classes does the Millipede belong to?",
+          "answer": "taxon"
+        }
+      ]
+    },
+    "detailed_results": [
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      false,
+      null,
+      true,
+      null,
+      null,
+      false,
+      null,
+      false,
+      false,
+      null,
+      false,
+      null,
+      true,
+      null,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      null
+    ]
   },
   "hotpot": {
-    "rows": [
-      {
-        "Results": false
-      },
-      {
-        "Results": false
-      },
-      {
-        "Results": false
-      },
-      {
-        "Results": null
-      },
-      {
-        "Results": null
-      }
-    ],
-    "totals": {
-      "Trues": 0,
-      "Falses": 3
+    "method": "pipeline",
+    "raw_data": {
+      "factual_count": 1,
+      "hallucination_count": 26,
+      "total_verified": 27
     },
-    "pct_totals": {
-      "percent_true": 0.0,
-      "percent_false": 100.0
-    }
+    "performance_metrics": {
+      "factual_accuracy_pct": 3.7037037037037033,
+      "hallucination_rate_pct": 96.29629629629629
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "Which hip hop record executive made guest appearances on Fast Cars, Danger, Fire and Knives?",
+          "answer": "I don't know"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "Is the Oberoi family part of a hotel company that has a headquarters in what city?",
+          "answer": "New York City"
+        },
+        {
+          "question": "Who was the \"The Simpsons\" character Milhouse named after?",
+          "answer": "Richard Nixon"
+        },
+        {
+          "question": "Which tennis player won more Grand Slam titles, Henri Leconte or Jonathan Stark?",
+          "answer": "Jonathan Stark"
+        }
+      ]
+    },
+    "detailed_results": [
+      null,
+      false,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      false,
+      true,
+      false,
+      false,
+      null,
+      false,
+      null,
+      null,
+      false,
+      false,
+      false,
+      false,
+      false,
+      null,
+      null,
+      false,
+      false,
+      null,
+      false,
+      null,
+      null,
+      null,
+      false,
+      false,
+      null,
+      false,
+      null,
+      null,
+      null,
+      false,
+      false,
+      false,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      false,
+      false
+    ]
   }
 }
