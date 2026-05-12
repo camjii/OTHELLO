@@ -1,0 +1,268 @@
+{
+  "mintaka": {
+    "method": "pipeline",
+    "raw_data": {
+      "factual_count": 1,
+      "hallucination_count": 19,
+      "total_verified": 20
+    },
+    "performance_metrics": {
+      "factual_accuracy_pct": 5.0,
+      "hallucination_rate_pct": 95.0
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "Is Texas the largest state in the US?",
+          "answer": "I don't know"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "Which actor was the star of Titanic and was born in Los Angeles, California?",
+          "answer": "I don't know"
+        },
+        {
+          "question": "In what year was the first book of the A Song of Ice and Fire series released?",
+          "answer": "I don't know"
+        },
+        {
+          "question": "Who is the youngest current U.S. governor?",
+          "answer": "Donald Trump."
+        }
+      ]
+    },
+    "detailed_results": [
+      null,
+      false,
+      null,
+      false,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      false,
+      null,
+      true,
+      false,
+      null,
+      false,
+      null,
+      false,
+      null,
+      null,
+      false,
+      false,
+      null,
+      null,
+      null,
+      false,
+      false,
+      false,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      false,
+      false
+    ]
+  },
+  "qald": {
+    "method": "pipeline",
+    "raw_data": {
+      "factual_count": 2,
+      "hallucination_count": 9,
+      "total_verified": 11
+    },
+    "performance_metrics": {
+      "factual_accuracy_pct": 18.181818181818183,
+      "hallucination_rate_pct": 81.81818181818183
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "Which countries in the European Union adopted the Euro?",
+          "answer": "Greece."
+        },
+        {
+          "question": "Who was President Lincoln's wife?",
+          "answer": "Mary Todd Lincoln"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "Which U.S. state was Butch Otter the governor of?",
+          "answer": "Idaho"
+        },
+        {
+          "question": "Which countries have places with more than two caves?",
+          "answer": "China."
+        },
+        {
+          "question": "In which country was Bill Gates born?",
+          "answer": "United States"
+        }
+      ]
+    },
+    "detailed_results": [
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      true,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "hotpot": {
+    "method": "pipeline",
+    "raw_data": {
+      "factual_count": 2,
+      "hallucination_count": 26,
+      "total_verified": 28
+    },
+    "performance_metrics": {
+      "factual_accuracy_pct": 7.142857142857142,
+      "hallucination_rate_pct": 92.85714285714286
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "Which tennis player won more Grand Slam titles, Henri Leconte or Jonathan Stark?",
+          "answer": "I don't know"
+        },
+        {
+          "question": "What does the Hacker-Pschorr Brewery have to limit in order to comply with German regulations?",
+          "answer": "alcohol content"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "Which magazine was started first, Arthur's Magazine or First for Women?",
+          "answer": "First for Women"
+        },
+        {
+          "question": "Is the Oberoi family part of a hotel company that has a headquarters in what city?",
+          "answer": "New York"
+        },
+        {
+          "question": "Who was the \"The Simpsons\" character Milhouse named after?",
+          "answer": "I don't know"
+        }
+      ]
+    },
+    "detailed_results": [
+      false,
+      false,
+      false,
+      null,
+      null,
+      true,
+      null,
+      null,
+      null,
+      false,
+      null,
+      false,
+      null,
+      null,
+      false,
+      false,
+      null,
+      false,
+      false,
+      false,
+      false,
+      null,
+      false,
+      null,
+      false,
+      false,
+      null,
+      false,
+      false,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      false,
+      false,
+      false,
+      false,
+      null,
+      null,
+      null,
+      false,
+      true,
+      false,
+      false,
+      false
+    ]
+  }
+}

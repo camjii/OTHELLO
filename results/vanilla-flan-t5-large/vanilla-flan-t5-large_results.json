@@ -1,0 +1,271 @@
+{
+  "mintaka": {
+    "method": "vanilla",
+    "raw_data": {
+      "factual_count": 3,
+      "hallucination_count": 20,
+      "total_verified": 23
+    },
+    "performance_metrics": {
+      "factual_accuracy_pct": 13.043478260869565,
+      "hallucination_rate_pct": 86.95652173913044
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "What was the latest U.S. state to join the union that isn't Hawaii?",
+          "answer": "New Jersey"
+        },
+        {
+          "question": "Which series is older, Metroid or Super Mario Bros?",
+          "answer": "Super Mario Bros."
+        },
+        {
+          "question": "Did Scream come out before the year 2000?",
+          "answer": "Yes"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "What is the seventh tallest mountain in North America?",
+          "answer": "Mount Rainier"
+        },
+        {
+          "question": "Which actor was the star of Titanic and was born in Los Angeles, California?",
+          "answer": "James Garner"
+        },
+        {
+          "question": "Which actor starred in Vanilla Sky and was married to Katie Holmes?",
+          "answer": "James Spader"
+        }
+      ]
+    },
+    "detailed_results": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      true,
+      null,
+      null,
+      false,
+      false,
+      true,
+      null,
+      null,
+      null,
+      null,
+      false,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      false,
+      false,
+      false,
+      null,
+      true,
+      null,
+      false,
+      null,
+      null,
+      null,
+      false,
+      false,
+      null,
+      null,
+      null,
+      null,
+      false,
+      false
+    ]
+  },
+  "qald": {
+    "method": "vanilla",
+    "raw_data": {
+      "factual_count": 9,
+      "hallucination_count": 18,
+      "total_verified": 27
+    },
+    "performance_metrics": {
+      "factual_accuracy_pct": 33.33333333333333,
+      "hallucination_rate_pct": 66.66666666666666
+    },
+    "sample_outputs": {
+      "factual_examples": [
+        {
+          "question": "What time zone is Salt Lake City in?",
+          "answer": "UTC07:00"
+        },
+        {
+          "question": "What is the highest mountain in Germany?",
+          "answer": "The Zugspitze"
+        },
+        {
+          "question": "Which airports are in California, USA?",
+          "answer": "Los Angeles International Airport"
+        }
+      ],
+      "hallucination_examples": [
+        {
+          "question": "Which artists were born on the same date as Rachel Stevens?",
+          "answer": "David Bowie"
+        },
+        {
+          "question": "Which European countries have a constitutional monarchy?",
+          "answer": "Austria, Belgium, Denmark, Finland, France, Germany, Greece, Hungary, Italy, Latvia, Lithuania, Luxembourg, Netherlands, Norway, Poland, Portugal, Romania, Spain, Sweden, Switzerland, and the United Kingdom"
+        },
+        {
+          "question": "Who is the mayor of Berlin?",
+          "answer": "gerhard schroeder"
+        }
+      ]
+    },
+    "detailed_results": [
+      true,
+      null,
+      true,
+      null,
+      null,
+      false,
+      null,
+      null,
+      null,
+      false,
+      null,
+      true,
+      null,
+      false,
+      true,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      true,
+      false,
+      false,
+      false,
+      false,
+      null,
+      null,
+      true,
+      false,
+      true,
+      null,
+      false,
+      false,
+      null,
+      false,
+      null,
+      null,
+      false,
+      false,
+      null,
+      null,
+      true,
+      false,
+      false,
+      true,
+      null,
+      false,
+      null,
+      null
+    ]
+  },
+  "hotpot": {
+    "method": "vanilla",
+    "raw_data": {
+      "factual_count": 0,
+      "hallucination_count": 33,
+      "total_verified": 33
+    },
+    "performance_metrics": {
+      "factual_accuracy_pct": 0.0,
+      "hallucination_rate_pct": 100.0
+    },
+    "sample_outputs": {
+      "factual_examples": [],
+      "hallucination_examples": [
+        {
+          "question": "Is the Oberoi family part of a hotel company that has a headquarters in what city?",
+          "answer": "Mumbai"
+        },
+        {
+          "question": "Who was the \"The Simpsons\" character Milhouse named after?",
+          "answer": "Walter Matthau"
+        },
+        {
+          "question": "Which tennis player won more Grand Slam titles, Henri Leconte or Jonathan Stark?",
+          "answer": "Henri Leconte"
+        }
+      ]
+    },
+    "detailed_results": [
+      null,
+      false,
+      false,
+      null,
+      null,
+      false,
+      null,
+      null,
+      false,
+      null,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      null,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      null,
+      false,
+      false,
+      false,
+      null,
+      false,
+      false,
+      null,
+      null,
+      false,
+      null,
+      false,
+      null,
+      null,
+      null,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      null,
+      false,
+      null
+    ]
+  }
+}

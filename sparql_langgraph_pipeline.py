@@ -1,174 +1,35 @@
+"""Backwards-compatible shim for the SPARQL generation pipeline.
+
+The implementation lives in :mod:`othello.pipelines.sparql_generation`. The
+module-level ``app`` is materialized lazily on first access so the import is
+cheap and does not require ``OPENAI_API_KEY`` to be set.
 """
-LangGraph pipeline for SPARQL query generation and execution against Wikidata.
-WITH BATCH PROCESSING ONLY
-Requires: langgraph, langchain-openai, SPARQLWrapper
-Install: pip install langgraph langchain-openai SPARQLWrapper
-"""
 
-from typing import TypedDict, List
-from langgraph.graph import StateGraph, END
-from langchain_openai import ChatOpenAI
-from SPARQLWrapper import SPARQLWrapper, JSON
-import json
-from dotenv import load_dotenv
-import os
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from tqdm import tqdm
-
-# Define the state that flows through the graph
-class GraphState(TypedDict):
-    question: str
-    sparql_query: str
-    results: dict
-    error: str
-    attempt: int
-    max_attempts: int
-
-# Initialize LLM
-load_dotenv()
-key = os.getenv("OPENAI_API_KEY")
-
-llm = ChatOpenAI(
-    model="gpt-5",
-    temperature=0,
-    output_version="responses/v1",
-    reasoning={"effort": "medium"},
-    model_kwargs={"text": {"verbosity": "low"}},
-    api_key=key
+from othello.pipelines.sparql_generation import (
+    SparqlGraphState as GraphState,
+    build_sparql_graph,
+    run_sparql_pipeline_batch,
 )
 
-# Wikidata SPARQL endpoint
-sparql = SPARQLWrapper("https://query.wikidata.org/sparql")
-sparql.setReturnFormat(JSON)
 
-def generate_sparql(state: GraphState) -> GraphState:
-    """Generate SPARQL query from natural language question."""
-    question = state["question"]
-    attempt = state.get("attempt", 0)
-    error = state.get("error", "")
-    
-    prompt = f"""Generate a SPARQL query for Wikidata to answer this question: {question}
+class _LazyApp:
+    """Compile the LangGraph workflow on first attribute access."""
 
-Important Wikidata conventions:
-- Use wdt: for direct property relationships
-- Use wd: for entity values
-- Common properties: P31 (instance of), P2044 (elevation), P30 (continent), P17 (country)
-- Always include SERVICE wikibase:label for readable labels
-- Return ONLY the SPARQL query, no explanations
+    def __init__(self) -> None:
+        self._app = None
 
-Example format:
-SELECT ?item ?itemLabel WHERE {{
-  ?item wdt:P31 wd:Q5.
-  SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-}}
-LIMIT 10"""
+    def _ensure(self):
+        if self._app is None:
+            self._app = build_sparql_graph()
+        return self._app
 
-    if attempt > 0 and error:
-        prompt += f"\n\nPrevious attempt failed with error: {error}\nPlease fix the query."
-    
-    response = llm.invoke(prompt)
-    query = response.content[1]['text'].strip()
-    
-    # Clean up the query if wrapped in code blocks
-    if query.startswith("```"):
-        lines = query.split("\n")
-        query = "\n".join(lines[1:-1]) if len(lines) > 2 else query
-    
-    state["sparql_query"] = query
-    state["attempt"] = attempt + 1
-    return state
+    def __getattr__(self, name):
+        return getattr(self._ensure(), name)
 
-def execute_sparql(state: GraphState) -> GraphState:
-    """Execute the SPARQL query against Wikidata."""
-    query = state["sparql_query"]
-    
-    try:
-        sparql.setQuery(query)
-        results = sparql.query().convert()
-        state["results"] = results
-        state["error"] = ""
-    except Exception as e:
-        state["error"] = str(e)
-        state["results"] = {}
-    
-    return state
-
-def check_results(state: GraphState) -> str:
-    """Decide whether to refine query or end."""
-    if state["error"]:
-        if state["attempt"] < state["max_attempts"]:
-            return "refine"
-        else:
-            return "end"
-    return "end"
-
-# Build the graph (no format_results node needed for batch)
-workflow = StateGraph(GraphState)
-workflow.add_node("generate", generate_sparql)
-workflow.add_node("execute", execute_sparql)
-workflow.set_entry_point("generate")
-workflow.add_edge("generate", "execute")
-workflow.add_conditional_edges(
-    "execute",
-    check_results,
-    {
-        "refine": "generate",
-        "end": END
-    }
-)
-app = workflow.compile()
-
-def run_sparql_pipeline_batch(questions: List[str], max_attempts: int = 3, max_workers: int = 3): #Loads all questions at once
-    """
-    Run the SPARQL query pipeline for multiple questions in parallel.
-    
-    Args:
-        questions: List of natural language questions
-        max_attempts: Maximum retry attempts per question
-        max_workers: Number of parallel workers (adjust based on OpenAI rate limits)
-    
-    Returns:
-        List of final states in the same order as input questions
-    """
-    def process_single(question): #Processes a single question
-        initial_state = {
-            "question": question,
-            "sparql_query": "",
-            "results": {},
-            "error": "",
-            "attempt": 0,
-            "max_attempts": max_attempts
-        }
-        return app.invoke(initial_state) #Runs pipeline
-    
-    results = [None] * len(questions) #If nothing runs
-    
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_to_index = {
-            executor.submit(process_single, q): i 
-            for i, q in enumerate(questions)
-        }
-        #Passing questions through the function, assigns more as each finishes
-        
-        # Progress bar
-        for future in tqdm(as_completed(future_to_index), total=len(questions), desc="Processing"):
-            index = future_to_index[future]
-            try:
-                results[index] = future.result()
-            except Exception as e:
-                results[index] = {
-                    "question": questions[index],
-                    "sparql_query": "",
-                    "results": {},
-                    "error": f"Pipeline error: {str(e)}",
-                    "attempt": 0,
-                    "max_attempts": max_attempts
-                }
-    
-    return results
+    def invoke(self, *args, **kwargs):
+        return self._ensure().invoke(*args, **kwargs)
 
 
+app = _LazyApp()
 
-
-
-
+__all__ = ["GraphState", "app", "build_sparql_graph", "run_sparql_pipeline_batch"]
